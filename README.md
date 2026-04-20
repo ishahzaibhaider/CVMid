@@ -156,6 +156,12 @@ streamlit run app/streamlit_app.py
 
 Drag-drop an image, see the verdict, Grad-CAM heatmap, and FFT spectrum side by side.
 
+### Train on free GPU + deploy the demo online
+
+See [**docs/deployment.md**](docs/deployment.md) for the full walkthrough:
+train on **Kaggle** (free T4 GPU, CIFAKE pre-hosted) and deploy on
+**Hugging Face Spaces** (free Streamlit hosting). Total cost: ₨ 0.
+
 ### Regenerate all figures for the report / slides
 
 ```bash
