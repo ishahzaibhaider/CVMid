@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.installed.cfg
+*.egg
+build/
+dist/
+.eggs/
+
+# Virtual envs
+venv/
+env/
+.venv/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Data (too large for git)
+data/CIFAKE/
+data/cifake/
+data/*.zip
+data/*.tar.gz
+*.npz
+
+# Model weights (too large for git)
+models_ckpt/*.pt
+models_ckpt/*.pth
+models_ckpt/*.ckpt
+
+# Reports (regeneratable)
+reports/figures/*.png
+reports/figures/*.jpg
+reports/metrics.json
+
+# Logs
+*.log
+runs/
+wandb/
+lightning_logs/
+
+# OS
+Thumbs.db
