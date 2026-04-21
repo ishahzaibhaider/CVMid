@@ -39,10 +39,12 @@ models_ckpt/*.pt
 models_ckpt/*.pth
 models_ckpt/*.ckpt
 
-# Reports (regeneratable)
-reports/figures/*.png
-reports/figures/*.jpg
-reports/metrics.json
+# Reports — figures and metrics ARE committed so the README/docs can show results
+# (uncomment if they ever become too large)
+# reports/figures/*.png
+# reports/figures/*.jpg
+# Only ignore Grad-CAM per-prediction dumps (can grow unbounded)
+reports/figures/gradcam/
 
 # Logs
 *.log
