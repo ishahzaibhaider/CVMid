@@ -3,9 +3,8 @@ title: VeriVision
 emoji: 🔍
 colorFrom: indigo
 colorTo: purple
-sdk: streamlit
-sdk_version: 1.30.0
-app_file: app.py
+sdk: docker
+app_port: 7860
 pinned: false
 license: mit
 short_description: Detect AI-generated images using CNN + FFT analysis
