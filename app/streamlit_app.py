@@ -41,7 +41,7 @@ with st.sidebar:
     )
     st.divider()
     st.header("Model")
-    available = sorted(CKPT_DIR.glob("*.pt"))
+    available = sorted(set(list(CKPT_DIR.glob("*.pt")) + list(ROOT.glob("*.pt"))))
     if not available:
         st.error("No checkpoints found in `models_ckpt/`. Train a model first (see README).")
         st.stop()
