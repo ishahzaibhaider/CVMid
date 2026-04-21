@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>VeriVision — Project Report</title>
+<style>
+  /* ─── Print-optimised academic paper styling ────────────────────────── */
+  @page { size: Letter; margin: 0.85in 0.9in; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: "Georgia", "Times New Roman", Times, serif;
+    font-size: 11pt; line-height: 1.55;
+    color: #111; background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body { max-width: 7.1in; margin: 0 auto; padding: 0.6in 0.3in; }
+  h1, h2, h3, h4 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #1a1a1a; }
+  h1 { font-size: 24pt; margin: 0 0 0.15em; line-height: 1.15; }
+  h2 { font-size: 15pt; margin: 1.6em 0 0.4em; border-bottom: 1.5px solid #333; padding-bottom: 0.15em; page-break-after: avoid; }
+  h3 { font-size: 12.5pt; margin: 1.1em 0 0.3em; page-break-after: avoid; }
+  h4 { font-size: 11pt; margin: 0.8em 0 0.2em; font-style: italic; }
+  p  { margin: 0 0 0.7em; text-align: justify; }
+  code { font-family: "Menlo", "Consolas", monospace; font-size: 9.5pt; background: #f1f1f1; padding: 1px 4px; border-radius: 3px; }
+  pre  { font-family: "Menlo", "Consolas", monospace; font-size: 9pt; background: #f7f7f7; border: 1px solid #ddd; border-left: 3px solid #555; padding: 10px 14px; overflow-x: auto; margin: 0.8em 0; }
+  table { border-collapse: collapse; width: 100%; margin: 0.8em 0; font-size: 10.5pt; }
+  th, td { border: 1px solid #bbb; padding: 6px 10px; text-align: left; }
+  th { background: #eee; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  figure { margin: 1em 0; text-align: center; page-break-inside: avoid; }
+  figure img { max-width: 100%; height: auto; border: 1px solid #ddd; }
+  figcaption { font-size: 9.5pt; color: #555; margin-top: 0.4em; font-style: italic; }
+  .cover { text-align: center; padding: 1.5in 0 1in; page-break-after: always; }
+  .cover h1 { font-size: 34pt; margin-bottom: 0.1em; }
+  .cover .subtitle { font-size: 15pt; color: #444; margin-top: 0; }
+  .cover .team { margin-top: 2in; font-size: 13pt; line-height: 2; }
+  .cover .team .name { font-weight: 600; }
+  .cover .meta { margin-top: 1.2in; font-size: 11pt; color: #666; }
+  .callout { background: #f0f7ff; border-left: 4px solid #2268c8; padding: 0.6em 0.9em; margin: 0.9em 0; font-size: 10.5pt; }
+  .callout.warn { background: #fff6e5; border-color: #d48800; }
+  .abstract { font-size: 10.5pt; background: #f7f7f7; border-left: 4px solid #444; padding: 0.8em 1em; margin: 1em 0 2em; }
+  ul, ol { margin: 0.3em 0 0.9em 1.3em; padding: 0; }
+  li { margin-bottom: 0.3em; }
+  .pbreak { page-break-before: always; }
+  .two-col { display: flex; gap: 14px; }
+  .two-col figure { flex: 1; margin: 0.4em 0; }
+  .tag { display: inline-block; background: #e6f4ea; color: #1b6d3b; font-size: 9pt; font-family: monospace; padding: 1px 7px; border-radius: 8px; border: 1px solid #bfe1cd; }
+  .tag.red { background: #fde7e7; color: #b4262b; border-color: #f3c2c2; }
+  .tag.blue { background: #e7eefc; color: #1a4dbf; border-color: #c4d3ee; }
+</style>
+</head>
+<body>
+
+<!-- ─── COVER PAGE ─────────────────────────────────────────────────────── -->
+<section class="cover">
+  <div style="font-family: 'Helvetica Neue', sans-serif; font-size: 10.5pt; color: #888; letter-spacing: 2px;">COMPUTER VISION · MID-TERM PROJECT REPORT</div>
+  <h1>VeriVision</h1>
+  <p class="subtitle">A Deep-Learning Approach to Detecting AI-Generated Images<br>with Frequency-Domain Preprocessing and Explainable Predictions</p>
+
+  <div class="team">
+    <div><span class="name">Shahzaib Haider Rizvi</span> — FA23-BAI-050</div>
+    <div><span class="name">Aymen Ali Seemab</span> — FA23-BAI-011</div>
+    <div><span class="name">Nimra Tahseen Yousaf</span> — FA23-BAI-043</div>
+  </div>
+
+  <div class="meta">
+    BS Artificial Intelligence · Fall 2023 Cohort<br>
+    Introduction to Computer Vision<br>
+    Submitted April 2026
+  </div>
+</section>
+
+<!-- ─── ABSTRACT ───────────────────────────────────────────────────────── -->
+<h2>Abstract</h2>
+<div class="abstract">
+We address the problem of distinguishing real camera-captured photographs from
+images synthesised by diffusion models — an increasingly pressing problem
+as generative-AI content floods online media. Using the public CIFAKE benchmark
+(120,000 images, balanced across CIFAR-10 real photos and Stable-Diffusion-v1.4
+outputs), we build an end-to-end pipeline: frequency-domain-augmented
+preprocessing, two complementary classifiers (a compact custom CNN trained from
+scratch and an ImageNet-pretrained ResNet-50 fine-tuned for binary
+classification), rigorous evaluation, and Grad-CAM explanations that reveal
+what visual evidence the model keys on. Our ResNet-50 reaches
+<strong>98.26 %</strong> test-set accuracy (ROC-AUC 0.9983) and the custom CNN
+<strong>96.77 %</strong> (ROC-AUC 0.9953) — both above their respective
+published baselines. We also stress-test the model on out-of-distribution
+imagery from a modern generator (Google's Nano Banana / Gemini 2.5 Flash Image)
+and report the expected failure to transfer, framing it as the natural direction
+for future work. The full system is deployed as an interactive web demo on
+Hugging Face Spaces.
+</div>
+
+<!-- ─── 1. INTRODUCTION ───────────────────────────────────────────────── -->
+<h2>1. Introduction</h2>
+<p>Modern diffusion models such as Stable Diffusion, DALL·E 3, Midjourney, and
+Google's Nano Banana produce photorealistic images that humans cannot reliably
+tell apart from camera-captured photographs. This has already produced concrete
+harms: fabricated news imagery, identity fraud, non-consensual synthetic media,
+and AI-generated artwork presented as human-made. A reliable, interpretable
+classifier that flags AI-generated images is therefore a directly useful
+tool — for journalists, content moderators, and everyday users alike.</p>
+
+<p><strong>Task.</strong> Binary classification — given an RGB image, predict
+whether it was captured by a camera (<code>REAL</code>) or synthesised by a
+diffusion model (<code>FAKE</code>). In addition to a prediction and a
+confidence score, the system should <em>explain itself</em> via a visual
+saliency map that highlights the image regions driving each decision.</p>
+
+<p><strong>Contributions of this project.</strong></p>
+<ol>
+  <li>A complete, reproducible training pipeline in PyTorch covering data
+      loading, preprocessing, training, evaluation, and inference.</li>
+  <li>A novel-for-a-student-project preprocessing step: the 2D log-magnitude
+      Fourier spectrum of each image is concatenated as a fourth input channel,
+      giving the model explicit access to the spectral fingerprints diffusion
+      models leave behind.</li>
+  <li>Head-to-head comparison of a from-scratch custom CNN (~200 k parameters)
+      against an ImageNet-pretrained ResNet-50, fine-tuned end-to-end.</li>
+  <li>Grad-CAM overlays that corroborate the Bird &amp; Lotfi (2024) finding
+      that AI-detectors focus on background texture rather than the foreground
+      object.</li>
+  <li>A deployed live demo on Hugging Face Spaces with a Streamlit front-end,
+      curated sample images, live Grad-CAM, and FFT-spectrum visualisation.</li>
+</ol>
+
+<!-- ─── 2. RELATED WORK ────────────────────────────────────────────────── -->
+<h2>2. Related Work</h2>
+<p>The seminal CIFAKE paper (Bird &amp; Lotfi, <em>IEEE Access</em>, 2024)
+published the dataset we use and reported ~92.9 % accuracy with a compact
+two-layer CNN. Subsequent community notebooks show DenseNet and ViT backbones
+reaching 97 %+ when ImageNet pretraining is applied after upsampling the 32×32
+inputs to 224×224. Parallel work on frequency-domain detection — UGAD (2024)
+and DEFEND / Natural Frequency Deviation (2025) — demonstrated that diffusion
+models leave characteristic cross / ring patterns in the Fourier magnitude
+spectrum, motivating our decision to expose that spectrum to the model
+directly as a fourth input channel.</p>
+<p>For explainability we use Grad-CAM (Selvaraju et al., 2017), which produces
+class-activation heatmaps from gradient information at an intermediate
+convolutional layer. We apply it at <code>layer4[-1]</code> of ResNet-50 and
+at the final <code>conv2</code> of our custom CNN — the standard locations
+for these architectures.</p>
+
+<!-- ─── 3. DATASET ────────────────────────────────────────────────────── -->
+<h2>3. Dataset: CIFAKE</h2>
+<p>CIFAKE <span class="tag blue">birdy654/cifake-real-and-ai-generated-synthetic-images</span>
+is a balanced binary dataset of 120,000 RGB images at 32 × 32 resolution,
+split as in Table&nbsp;1. The REAL half is drawn from CIFAR-10; the FAKE half
+is produced by Stable Diffusion v1.4 prompted with CIFAR-10 class names.</p>
+
+<table>
+  <caption style="caption-side: bottom; font-size: 9.5pt; color: #555; padding-top: 4px;">Table 1. CIFAKE split sizes.</caption>
+  <thead><tr><th>Split</th><th>REAL</th><th>FAKE</th><th>Total</th></tr></thead>
+  <tbody>
+    <tr><td>Train</td><td class="num">50,000</td><td class="num">50,000</td><td class="num">100,000</td></tr>
+    <tr><td>Test</td><td class="num">10,000</td><td class="num">10,000</td><td class="num">20,000</td></tr>
+    <tr><th>Total</th><th class="num">60,000</th><th class="num">60,000</th><th class="num">120,000</th></tr>
+  </tbody>
+</table>
+
+<p><strong>Label convention.</strong> <code>torchvision.datasets.ImageFolder</code>
+assigns labels alphabetically: <code>FAKE → 0</code>, <code>REAL → 1</code>.
+All confusion matrices, ROC curves, and reported precision / recall follow
+this convention. <strong>Validation split.</strong> We carve a 10 % validation
+set out of the 100 k training images with a fixed seed; the 20 k CIFAKE test
+set is held out completely until the final evaluation.</p>
+
+<!-- ─── 4. METHODOLOGY ─────────────────────────────────────────────────── -->
+<h2 class="pbreak">4. Methodology</h2>
+
+<h3>4.1 Preprocessing pipeline</h3>
+<p>The core pipeline is intentionally conservative: aggressive augmentations
+destroy the high-frequency signal on which AI-detection depends
+(2025 robustness studies on CIFAKE show Gaussian blur drops accuracy from
+~93 % to ~26 %). We therefore use only mild geometric augmentation at
+training time.</p>
+
+<table>
+  <thead><tr><th>Stage</th><th>Train</th><th>Val / Test</th></tr></thead>
+  <tbody>
+    <tr><td>Resize</td><td>→ target size</td><td>→ target size</td></tr>
+    <tr><td>Random horizontal flip</td><td>p = 0.5</td><td>—</td></tr>
+    <tr><td>Random affine translation</td><td>± 5 %</td><td>—</td></tr>
+    <tr><td>ToTensor</td><td>✓</td><td>✓</td></tr>
+    <tr><td>Normalise (CIFAR-10 stats for custom CNN, ImageNet stats for ResNet-50)</td><td>✓</td><td>✓</td></tr>
+    <tr><td>FFT channel <em>(optional — our contribution)</em></td><td>append 4<sup>th</sup> channel</td><td>append 4<sup>th</sup> channel</td></tr>
+  </tbody>
+</table>
+
+<p><strong>FFT channel — our contribution.</strong> For each input image we
+compute the 2D FFT of its luminance channel, shift the DC component to the
+centre, take the log-magnitude, and min-max normalise the result to
+<code>[0, 1]</code>. The resulting spectrogram is concatenated as a fourth
+channel. The first convolutional layer of the model is therefore responsible
+for learning a joint RGB-plus-spectrum filter bank. For ResNet-50 with the
+FFT channel enabled we surgically replace the ImageNet-pretrained
+<code>conv1</code> to accept four input channels; the RGB filter weights are
+copied unchanged, and the fourth channel's weights are initialised as the
+channel-mean of the RGB filters, preserving most of the pretrained signal.</p>
+
+<h3>4.2 Model architectures</h3>
+<p>We train two complementary classifiers:</p>
+<ol>
+  <li><strong>Custom CNN</strong> — three Conv-BN-ReLU blocks with 32→64→128
+      channels, 2×2 max-pooling after each block, global average pooling, and
+      a two-layer MLP head with dropout 0.3. Operates natively at 32 × 32,
+      ~200 k trainable parameters, trains end-to-end in under three minutes
+      on a T4 GPU.</li>
+  <li><strong>ResNet-50 (transfer learning)</strong> — torchvision
+      <code>ResNet50_Weights.IMAGENET1K_V2</code> backbone with the final
+      classification head replaced by <code>Dropout(0.3) → Linear(2048, 2)</code>.
+      Inputs are upsampled to 224 × 224 so the pretrained stride-2 stem does
+      not immediately collapse the signal. All layers are fine-tuned (no
+      freezing) because CIFAKE is large enough to afford it and the source
+      domain (ImageNet) is only approximately aligned with the target task.</li>
+</ol>
+
+<h3>4.3 Training protocol</h3>
+<ul>
+  <li><strong>Optimiser:</strong> AdamW, lr = 1e-3, weight decay = 1e-4.</li>
+  <li><strong>Scheduler:</strong> cosine annealing over the full epoch budget.</li>
+  <li><strong>Loss:</strong> cross-entropy.</li>
+  <li><strong>Early stopping:</strong> patience 3 on validation loss; best
+      checkpoint is retained.</li>
+  <li><strong>Batch size / epochs:</strong> 256 / 10 for the custom CNN,
+      128 / 5 for ResNet-50 (pretrained models converge faster).</li>
+  <li><strong>Reproducibility:</strong> seeded <code>random</code>,
+      <code>numpy</code>, <code>torch</code>, and deterministic cuDNN.</li>
+  <li><strong>Hardware:</strong> Kaggle-hosted NVIDIA T4 ×2 via a reproducible
+      training notebook (<code>notebooks/kaggle_train.py</code>).</li>
+</ul>
+
+<!-- ─── 5. RESULTS ──────────────────────────────────────────────────────── -->
+<h2 class="pbreak">5. Results</h2>
+
+<h3>5.1 Quantitative results on the 20 k CIFAKE test set</h3>
+
+<table>
+  <caption style="caption-side: bottom; font-size: 9.5pt; color: #555; padding-top: 4px;">
+    Table 2. Test-set performance. Both models comfortably exceed their target benchmarks.
+  </caption>
+  <thead>
+    <tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Custom CNN (from scratch)</td>
+      <td class="num">0.9677</td>
+      <td class="num">0.9696</td>
+      <td class="num">0.9657</td>
+      <td class="num">0.9676</td>
+      <td class="num">0.9953</td>
+    </tr>
+    <tr>
+      <td><strong>ResNet-50 (transfer learning)</strong></td>
+      <td class="num"><strong>0.9826</strong></td>
+      <td class="num"><strong>0.9819</strong></td>
+      <td class="num"><strong>0.9833</strong></td>
+      <td class="num"><strong>0.9826</strong></td>
+      <td class="num"><strong>0.9983</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout">
+<strong>Key finding.</strong> Both models are essentially saturated on the
+CIFAKE test distribution. ResNet-50 beats the custom CNN by ~1.5 accuracy
+points and ~0.003 ROC-AUC — a small but consistent margin attributable to
+the ImageNet pretraining and the model capacity.
+</div>
+
+<h3>5.2 Training dynamics</h3>
+
+<figure>
+  <img src="figures/training_curves_custom_cnn.png" alt="Training curves — custom CNN">
+  <figcaption>Figure 1. Custom-CNN training curves. Training and validation loss
+  descend in lock-step for the first ~6 epochs; the small train-val gap that
+  opens afterwards is expected, not a sign of over-fitting.</figcaption>
+</figure>
+
+<figure>
+  <img src="figures/training_curves_resnet50.png" alt="Training curves — ResNet-50">
+  <figcaption>Figure 2. ResNet-50 training curves. The pretrained backbone
+  starts from already-useful features and reaches 98 %+ validation accuracy
+  within 3 epochs.</figcaption>
+</figure>
+
+<h3>5.3 Confusion matrices</h3>
+
+<div class="two-col">
+  <figure>
+    <img src="figures/confusion_custom_cnn.png" alt="Custom-CNN confusion matrix">
+    <figcaption>Figure 3. Custom CNN.</figcaption>
+  </figure>
+  <figure>
+    <img src="figures/confusion_resnet50.png" alt="ResNet-50 confusion matrix">
+    <figcaption>Figure 4. ResNet-50.</figcaption>
+  </figure>
+</div>
+
+<p>Error patterns are symmetric for both models — false positives (REAL images
+mislabelled as FAKE) and false negatives (FAKE images mislabelled as REAL)
+occur at comparable rates. This rules out class-imbalance artefacts and
+suggests the residual errors live at the genuinely hard tail of the
+distribution.</p>
+
+<h3>5.4 ROC curves</h3>
+
+<div class="two-col">
+  <figure>
+    <img src="figures/roc_custom_cnn.png" alt="ROC curve — custom CNN">
+    <figcaption>Figure 5. Custom CNN, AUC = 0.9953.</figcaption>
+  </figure>
+  <figure>
+    <img src="figures/roc_resnet50.png" alt="ROC curve — ResNet-50">
+    <figcaption>Figure 6. ResNet-50, AUC = 0.9983.</figcaption>
+  </figure>
+</div>
+
+<!-- ─── 6. EXPLAINABILITY ──────────────────────────────────────────────── -->
+<h2 class="pbreak">6. Explainability — Grad-CAM</h2>
+<p>Quantitative accuracy answers <em>how often</em> the model is right;
+Grad-CAM answers <em>why</em>. We compute class-activation heatmaps at
+<code>layer4[-1]</code> of ResNet-50 and overlay them on the input image at
+224 × 224. Heatmap red regions are those that, if ablated, would most reduce
+the predicted class score.</p>
+
+<p>Our overlays corroborate the Bird &amp; Lotfi (2024) finding: the network
+fixates on <em>background texture</em> and small high-frequency
+irregularities — skies, fur texture, noise patterns on pavement — rather than
+the foreground object. This is consistent with the hypothesis that diffusion
+artefacts accumulate in spatially large, low-semantic regions of the image,
+not in the semantically salient object itself.</p>
+
+<div class="callout">
+<strong>How to view Grad-CAM live:</strong> open the deployed Streamlit demo
+(Section 7), pick a sample image, and toggle "Show Grad-CAM" in the sidebar.
+A separate Grad-CAM grid figure can be regenerated locally via
+<code>python -m scripts.demo</code>.
+</div>
+
+<!-- ─── 7. DEPLOYMENT ───────────────────────────────────────────────────── -->
+<h2>7. Deployment — Live Demo</h2>
+<p>The trained custom CNN is deployed as a Streamlit web application running
+inside a Docker container on Hugging Face Spaces (free CPU tier, 16 GB RAM).
+The live demo is publicly accessible at:</p>
+
+<pre>https://huggingface.co/spaces/ishahzaibhaider/verivision</pre>
+
+<p>The interface provides:</p>
+<ul>
+  <li>A curated set of 10 CIFAKE test images (5 REAL + 5 FAKE) for
+      one-click, guaranteed-in-distribution demonstration.</li>
+  <li>A file-upload tab for arbitrary user images, with an explicit
+      warning about out-of-distribution behaviour.</li>
+  <li>A live Grad-CAM overlay showing which regions drove the prediction.</li>
+  <li>A live 2D FFT magnitude spectrum of the input, visualising the
+      frequency-domain fingerprint.</li>
+  <li>A sidebar "About this model" disclosure that spells out the training
+      distribution and known limitations up-front.</li>
+</ul>
+
+<p><em>Screenshots of the deployed application are included in the final
+    submission; the viewer is invited to interact with the live URL above.</em></p>
+
+<!-- ─── 8. LIMITATIONS & OOD ─────────────────────────────────────────────── -->
+<h2 class="pbreak">8. Limitations and Out-of-Distribution Analysis</h2>
+
+<p>Our accuracy numbers are obtained on a well-defined, closed test
+distribution (CIFAKE at 32 × 32, FAKE half generated by Stable Diffusion v1.4).
+The honest report of limitations is an integral part of the contribution;
+overclaiming generalisation would be misleading.</p>
+
+<h3>8.1 Resolution collapse</h3>
+<p>Our pipeline resizes every input to 32 × 32 (or upsamples to 224 × 224 from
+a 32 × 32 starting point, for ResNet-50). Real-world AI-generated content is
+typically 512 × 512 or higher. Downsampling a high-resolution image to
+32 × 32 destroys the fine-grained high-frequency artefacts that the model
+was trained to detect.</p>
+
+<h3>8.2 Single-generator coverage</h3>
+<p>CIFAKE's FAKE half comes exclusively from Stable Diffusion v1.4 (released
+August 2022). Newer diffusion models (SDXL, Flux, DALL·E 3, Midjourney v6,
+Google's Nano Banana / Gemini 2.5 Flash Image) use different architectures
+and training objectives and consequently leave different spectral
+fingerprints.</p>
+
+<h3>8.3 A concrete OOD failure — Nano Banana</h3>
+<p>As a stress-test we generated a complex scene (a cartoon-style frog
+photographed in front of Disneyland's Sleeping Beauty Castle) using Google's
+Nano Banana model and fed the 1024 × 1024 output through our ResNet-50. The
+model classified it as <strong>REAL with 98.2 % confidence</strong> — a
+confident false negative. This is not a bug: it is the expected consequence
+of training on 32 × 32 SD v1.4 outputs and testing on 1024 × 1024 Nano Banana
+outputs. Three factors compound here:</p>
+<ol>
+  <li><em>Generator mismatch</em> — Nano Banana's architecture and training
+      differ from SD v1.4's; its spectral fingerprint is not in the training
+      distribution.</li>
+  <li><em>Resolution collapse</em> — the 1024 × 1024 image is reduced to
+      32 × 32 (≈99 % of the pixel data is discarded before the model sees it),
+      destroying the very signal on which detection depends.</li>
+  <li><em>Semantic OOD</em> — CIFAKE's FAKE half covers only the ten CIFAR-10
+      classes (single, centred objects). Complex multi-object scenes are
+      unrepresented.</li>
+</ol>
+
+<h3>8.4 Adversarial robustness</h3>
+<p>We do not evaluate against adversarial perturbations (e.g. small L∞-bounded
+additive noise). This is outside the scope of a mid-project and is the
+natural next step for a final-project extension.</p>
+
+<!-- ─── 9. CONCLUSION & FUTURE WORK ─────────────────────────────────────── -->
+<h2>9. Conclusion and Future Work</h2>
+<p>We demonstrated that a small from-scratch CNN (~200 k parameters) is
+already sufficient to classify CIFAKE REAL vs FAKE at <strong>96.77 %</strong>
+test-set accuracy, and that a fine-tuned ResNet-50 pushes this to
+<strong>98.26 %</strong> with ROC-AUC 0.9983. The frequency-domain channel
+we introduced gives the model explicit access to spectral fingerprints
+without adding more than a few hundred extra parameters. Grad-CAM overlays
+confirm the expected behaviour: the classifier focuses on background texture,
+not on foreground objects. The full system is deployed as an interactive
+public web demo.</p>
+
+<p><strong>Future work, in priority order:</strong></p>
+<ol>
+  <li>Re-train on a multi-generator, multi-resolution dataset (GenImage,
+      DiffusionDB) to close the Nano-Banana-style OOD gap.</li>
+  <li>Evaluate adversarial robustness under small L∞-bounded perturbations
+      and propose a training-time defence (e.g. TRADES or PGD-augmented
+      training).</li>
+  <li>Integrate a Vision Transformer backbone (ViT-B/16 or DeiT-Small) and
+      compare against the ResNet-50 baseline with and without the FFT
+      channel.</li>
+  <li>Add a higher-resolution mode (256 × 256) that preserves more of the
+      forensic signal for user-uploaded images in the deployed demo.</li>
+</ol>
+
+<!-- ─── 10. REFERENCES ──────────────────────────────────────────────────── -->
+<h2>10. References</h2>
+<ol>
+  <li>Bird, J. J., &amp; Lotfi, A. (2024). <em>CIFAKE: Image Classification
+      and Explainable Identification of AI-Generated Synthetic Images.</em>
+      IEEE Access.</li>
+  <li>Selvaraju, R. R., Cogswell, M., Das, A., Vedantam, R., Parikh, D., &amp;
+      Batra, D. (2017). <em>Grad-CAM: Visual Explanations from Deep Networks
+      via Gradient-based Localization.</em> ICCV.</li>
+  <li>He, K., Zhang, X., Ren, S., &amp; Sun, J. (2016). <em>Deep Residual
+      Learning for Image Recognition.</em> CVPR.</li>
+  <li>Rombach, R., Blattmann, A., Lorenz, D., Esser, P., &amp; Ommer, B.
+      (2022). <em>High-Resolution Image Synthesis with Latent Diffusion
+      Models.</em> CVPR. (Stable Diffusion v1.4.)</li>
+  <li><em>Methods and Trends in Detecting Generated Images: A Survey.</em>
+      arXiv:2502.15176, 2025.</li>
+  <li><em>UGAD: Universal Generated-Image Detection via Frequency-Domain
+      Fingerprints.</em> arXiv:2409.07913, 2024.</li>
+  <li>Paszke, A., et al. (2019). <em>PyTorch: An Imperative Style,
+      High-Performance Deep Learning Library.</em> NeurIPS.</li>
+</ol>
+
+<!-- ─── APPENDIX A. REPRODUCIBILITY ─────────────────────────────────────── -->
+<h2 class="pbreak">Appendix A — Reproducibility</h2>
+<p>The complete project is version-controlled at
+<code>github.com/shahzaibhaider/CVMid</code>. A curated end-to-end reproduction
+consists of four commands, all executable in a free Kaggle account:</p>
+
+<pre># 1. Clone
+git clone https://github.com/shahzaibhaider/CVMid && cd CVMid
+
+# 2. Install dependencies (inside a fresh venv)
+pip install -r requirements.txt
+
+# 3. Train the custom CNN on CIFAKE
+python -m scripts.train --model custom_cnn --epochs 10
+
+# 4. Evaluate on the 20 k held-out test set
+python -m scripts.evaluate --checkpoint models_ckpt/custom_cnn.pt</pre>
+
+<p>For free-GPU training we provide <code>notebooks/kaggle_train.py</code>,
+which bootstraps the repo inside a Kaggle notebook, symlinks the CIFAKE
+dataset into place, trains both models, evaluates them, and exports
+artefacts. On an NVIDIA T4 × 2 the end-to-end runtime is ≈105 minutes.</p>
+
+<h3>A.1 Project layout</h3>
+<pre>CVMid/
+├── src/                  # Library code (data, preprocessing, models, training, eval)
+├── scripts/              # CLI entrypoints (train, evaluate, predict, demo, fetch_samples)
+├── app/                  # Streamlit application + curated sample images
+├── notebooks/            # Kaggle training script
+├── deploy/               # Hugging Face Spaces deployment artifacts (Dockerfile, etc.)
+├── docs/                 # Project proposal, methodology, deployment, presentation
+├── reports/
+│   ├── figures/          # All report figures (this document)
+│   └── metrics_*.json    # Raw metric dumps per model
+└── models_ckpt/          # Trained checkpoints</pre>
+
+<div style="margin-top: 2em; padding-top: 1em; border-top: 1px solid #ccc; font-size: 9pt; color: #888; text-align: center;">
+  VeriVision · Introduction to Computer Vision Mid-Project · April 2026
+</div>
+
+</body>
+</html>
