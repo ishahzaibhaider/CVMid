@@ -1,46 +1,50 @@
-# How to turn the report into a PDF
+# Building / exporting the project report
 
-The report lives at [`reports/VeriVision_Report.html`](VeriVision_Report.html). It already embeds every figure from `reports/figures/` and is styled like an academic paper. Converting to PDF takes ~30 seconds with zero installs.
+The full project report is **`VeriVision_Project_Report.md`** (Markdown
+source). It builds to both a Word document and a PDF, each with all 41 figures
+embedded.
 
-## Easiest method — browser print-to-PDF (recommended)
+## One command (recommended)
 
-1. In Finder, navigate to `~/CVMid/reports/` and **double-click `VeriVision_Report.html`**. It opens in Safari or Chrome.
-2. Press **⌘ + P** (Cmd + P).
-3. In the print dialog:
-   - **Destination / PDF:** "Save as PDF"
-   - **Paper size:** US Letter
-   - **Margins:** Default (the page CSS already sets correct margins)
-   - **Background graphics / Print backgrounds:** **Enabled** (so the cover page colours print)
-4. Click **Save** → name it `VeriVision_Report.pdf` → done.
-
-Result: a ~10-page PDF with cover page, abstract, figures, tables, and references. This is the file you submit.
-
-## Alternative — use Chrome's headless mode (one command)
-
-If the print dialog is being awkward:
+From the project root:
 
 ```bash
-/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
-  --headless --disable-gpu \
-  --print-to-pdf=VeriVision_Report.pdf \
-  file://$HOME/CVMid/reports/VeriVision_Report.html
+python -m scripts.build_report
 ```
 
-Run that from any terminal — it spits out `VeriVision_Report.pdf` in the current directory.
+This produces:
 
-## Quick-check before submitting
+- `reports/VeriVision_Project_Report.docx` — the Word document
+- `reports/VeriVision_Project_Report.pdf` — the PDF
+- `reports/VeriVision_Project_Report.html` — intermediate, used for the PDF
 
-Open the generated PDF and make sure:
+It needs the **`pandoc`** CLI (`brew install pandoc`) and **Google Chrome**
+(used headlessly to render the PDF — no LaTeX required).
 
-- Cover page shows all three team names and registrations correctly.
-- Training-curve, confusion-matrix, and ROC figures all render (not broken image icons).
-- Page breaks fall at section boundaries (Methodology, Results, Limitations all start on a new page).
-- No page is blank or cut off mid-sentence.
+## Manual PDF export (fallback)
 
-If any figure is missing, it's because its PNG wasn't in `reports/figures/` when you opened the HTML. Verify with:
+If the script cannot find Chrome, open the generated HTML in any browser and
+print to PDF:
+
+1. Open `reports/VeriVision_Project_Report.html`.
+2. Press **⌘ + P** → Destination **Save as PDF** → paper size **A4**.
+3. Enable **Background graphics** so the cover and headings keep their colour.
+4. Save as `VeriVision_Project_Report.pdf`.
+
+## Quick check before submitting
+
+- Cover page shows all three team names and registration numbers.
+- The table of contents lists Sections 1–15.
+- Every figure renders (no broken-image icons) — 41 in total.
+- Each numbered section starts on a fresh page.
+
+To regenerate the figures the report embeds:
 
 ```bash
-ls reports/figures/
+python -m scripts.run_classical --unit all     # Units 1-7 (classical CV)
+python -m scripts.verivision_figures           # VeriVision data figures
 ```
 
-Expected files: `confusion_custom_cnn.png`, `confusion_resnet50.png`, `roc_custom_cnn.png`, `roc_resnet50.png`, `training_curves_custom_cnn.png`, `training_curves_resnet50.png`.
+*Note: `VeriVision_Report.html` is the earlier mid-term report covering only
+the deep-learning detector. It is superseded by
+`VeriVision_Project_Report.*`, which covers the whole syllabus.*

@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Shahzaib Haider Rizvi — FA23-BAI-050" />
+  <meta name="author" content="Aymen Ali Seemab — FA23-BAI-011" />
+  <meta name="author" content="Nimra Tahseen Yousaf — FA23-BAI-043" />
+  <title>VeriVision – VeriVision</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="report_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">VeriVision</h1>
+<p class="subtitle">Real vs AI-Generated Image Detection  ·  A
+Full-Syllabus Computer-Vision Project</p>
+<p class="author">Shahzaib Haider Rizvi — FA23-BAI-050</p>
+<p class="author">Aymen Ali Seemab — FA23-BAI-011</p>
+<p class="author">Nimra Tahseen Yousaf — FA23-BAI-043</p>
+<p class="date">AIC341 — Introduction to Computer Vision | Department of
+Computer Science | COMSATS University Islamabad | May 2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#abstract" id="toc-abstract">1. Abstract</a></li>
+<li><a href="#introduction" id="toc-introduction">2. Introduction</a>
+<ul>
+<li><a href="#background-and-motivation"
+id="toc-background-and-motivation">2.1 Background and
+motivation</a></li>
+<li><a href="#objectives" id="toc-objectives">2.2 Objectives</a></li>
+<li><a href="#scope-from-a-single-topic-to-the-whole-syllabus"
+id="toc-scope-from-a-single-topic-to-the-whole-syllabus">2.3 Scope —
+from a single topic to the whole syllabus</a></li>
+<li><a href="#structure-of-this-report"
+id="toc-structure-of-this-report">2.4 Structure of this report</a></li>
+</ul></li>
+<li><a href="#the-verivision-detection-system"
+id="toc-the-verivision-detection-system">3. The VeriVision Detection
+System</a>
+<ul>
+<li><a href="#problem-statement" id="toc-problem-statement">3.1 Problem
+statement</a></li>
+<li><a href="#dataset-cifake" id="toc-dataset-cifake">3.2 Dataset —
+CIFAKE</a></li>
+<li><a href="#preprocessing-and-the-fft-channel"
+id="toc-preprocessing-and-the-fft-channel">3.3 Preprocessing and the FFT
+channel</a></li>
+<li><a href="#model-architectures" id="toc-model-architectures">3.4
+Model architectures</a></li>
+<li><a href="#training-methodology" id="toc-training-methodology">3.5
+Training methodology</a></li>
+<li><a href="#results-and-evaluation"
+id="toc-results-and-evaluation">3.6 Results and evaluation</a></li>
+<li><a href="#explainability-with-grad-cam"
+id="toc-explainability-with-grad-cam">3.7 Explainability with
+Grad-CAM</a></li>
+</ul></li>
+<li><a href="#unit-1-introduction-to-computer-vision"
+id="toc-unit-1-introduction-to-computer-vision">4. Unit 1 — Introduction
+to Computer Vision</a>
+<ul>
+<li><a href="#image-formation-the-pinhole-camera"
+id="toc-image-formation-the-pinhole-camera">4.1 Image formation — the
+pinhole camera</a></li>
+<li><a href="#the-digital-image-and-colour"
+id="toc-the-digital-image-and-colour">4.2 The digital image and
+colour</a></li>
+<li><a href="#the-computer-vision-pipeline"
+id="toc-the-computer-vision-pipeline">4.3 The computer-vision
+pipeline</a></li>
+</ul></li>
+<li><a href="#unit-2-sampling-multiscale-representations-and-features"
+id="toc-unit-2-sampling-multiscale-representations-and-features">5. Unit
+2 — Sampling, Multiscale Representations and Features</a>
+<ul>
+<li><a href="#sampling-and-aliasing" id="toc-sampling-and-aliasing">5.1
+Sampling and aliasing</a></li>
+<li><a href="#multiscale-image-pyramids"
+id="toc-multiscale-image-pyramids">5.2 Multiscale image
+pyramids</a></li>
+<li><a href="#edges-corners-and-blobs"
+id="toc-edges-corners-and-blobs">5.3 Edges, corners and blobs</a></li>
+<li><a href="#local-features-and-keypoint-matching"
+id="toc-local-features-and-keypoint-matching">5.4 Local features and
+keypoint matching</a></li>
+<li><a href="#the-hough-transform" id="toc-the-hough-transform">5.5 The
+Hough transform</a></li>
+<li><a href="#ransac-robust-model-fitting"
+id="toc-ransac-robust-model-fitting">5.6 RANSAC — robust model
+fitting</a></li>
+</ul></li>
+<li><a href="#unit-3-geometric-vision-transformations-and-stereo"
+id="toc-unit-3-geometric-vision-transformations-and-stereo">6. Unit 3 —
+Geometric Vision: Transformations and Stereo</a>
+<ul>
+<li><a href="#the-hierarchy-of-2-d-transformations"
+id="toc-the-hierarchy-of-2-d-transformations">6.1 The hierarchy of 2-D
+transformations</a></li>
+<li><a href="#stereo-vision-and-depth-from-disparity"
+id="toc-stereo-vision-and-depth-from-disparity">6.2 Stereo vision and
+depth from disparity</a></li>
+<li><a href="#epipolar-geometry" id="toc-epipolar-geometry">6.3 Epipolar
+geometry</a></li>
+</ul></li>
+<li><a href="#unit-4-model-fitting-and-regularisation"
+id="toc-unit-4-model-fitting-and-regularisation">7. Unit 4 — Model
+Fitting and Regularisation</a>
+<ul>
+<li><a href="#polynomial-curve-fitting-and-model-capacity"
+id="toc-polynomial-curve-fitting-and-model-capacity">7.1 Polynomial
+curve fitting and model capacity</a></li>
+<li><a href="#the-bias-variance-trade-off"
+id="toc-the-bias-variance-trade-off">7.2 The bias-variance
+trade-off</a></li>
+<li><a href="#regularisation" id="toc-regularisation">7.3
+Regularisation</a></li>
+<li><a href="#kernel-regression" id="toc-kernel-regression">7.4 Kernel
+regression</a></li>
+</ul></li>
+<li><a href="#unit-5-learning-in-computer-vision"
+id="toc-unit-5-learning-in-computer-vision">8. Unit 5 — Learning in
+Computer Vision</a>
+<ul>
+<li><a href="#convolution-the-cnn-building-block"
+id="toc-convolution-the-cnn-building-block">8.1 Convolution — the CNN
+building block</a></li>
+<li><a href="#optimisers-and-gradient-descent"
+id="toc-optimisers-and-gradient-descent">8.2 Optimisers and gradient
+descent</a></li>
+<li><a href="#a-neural-network-trained-from-scratch-by-back-propagation"
+id="toc-a-neural-network-trained-from-scratch-by-back-propagation">8.3 A
+neural network trained from scratch by back-propagation</a></li>
+</ul></li>
+<li><a href="#unit-6-motion-and-change-detection"
+id="toc-unit-6-motion-and-change-detection">9. Unit 6 — Motion and
+Change Detection</a>
+<ul>
+<li><a href="#optical-flow" id="toc-optical-flow">9.1 Optical
+flow</a></li>
+<li><a href="#translational-motion-estimation"
+id="toc-translational-motion-estimation">9.2 Translational motion
+estimation</a></li>
+<li><a href="#change-detection" id="toc-change-detection">9.3 Change
+detection</a></li>
+</ul></li>
+<li><a href="#unit-7-generative-models-and-representation-learning"
+id="toc-unit-7-generative-models-and-representation-learning">10. Unit 7
+— Generative Models and Representation Learning</a>
+<ul>
+<li><a href="#representation-learning-with-pca"
+id="toc-representation-learning-with-pca">10.1 Representation learning
+with PCA</a></li>
+<li><a href="#perceptual-grouping-segmentation"
+id="toc-perceptual-grouping-segmentation">10.2 Perceptual grouping —
+segmentation</a></li>
+<li><a href="#generative-models" id="toc-generative-models">10.3
+Generative models</a></li>
+<li><a href="#the-connection-back-to-verivision"
+id="toc-the-connection-back-to-verivision">10.4 The connection back to
+VeriVision</a></li>
+</ul></li>
+<li><a href="#course-learning-outcome-mapping"
+id="toc-course-learning-outcome-mapping">11. Course Learning Outcome
+Mapping</a></li>
+<li><a href="#how-to-run-the-project"
+id="toc-how-to-run-the-project">12. How to Run the Project</a></li>
+<li><a href="#conclusion-limitations-and-future-work"
+id="toc-conclusion-limitations-and-future-work">13. Conclusion,
+Limitations and Future Work</a>
+<ul>
+<li><a href="#conclusion" id="toc-conclusion">13.1 Conclusion</a></li>
+<li><a href="#limitations" id="toc-limitations">13.2
+Limitations</a></li>
+<li><a href="#future-work" id="toc-future-work">13.3 Future
+work</a></li>
+</ul></li>
+<li><a href="#references" id="toc-references">14. References</a></li>
+<li><a href="#appendix-team-and-contributions"
+id="toc-appendix-team-and-contributions">15. Appendix — Team and
+Contributions</a></li>
+</ul>
+</nav>
+<h1 id="abstract">1. Abstract</h1>
+<p>Generative diffusion models now synthesise images that the human eye
+cannot reliably tell apart from real photographs. This project,
+<strong>VeriVision</strong>, builds an interpretable deep-learning
+system that classifies an image as either <strong>REAL</strong>
+(camera-captured) or <strong>FAKE</strong> (AI-generated), and explains
+every decision with a visual saliency map.</p>
+<p>The detector is trained on the <strong>CIFAKE</strong> dataset
+(120,000 images) and is built around two models: a convolutional neural
+network written from scratch and a ResNet-50 transfer-learning model. A
+distinctive preprocessing contribution adds the
+<strong>Fourier-magnitude spectrum</strong> of each image as an extra
+input channel, exploiting the spectral fingerprints that diffusion
+models leave behind. On the held-out 20,000-image test set the
+from-scratch CNN reaches <strong>96.8 % accuracy</strong> and the
+ResNet-50 model reaches <strong>98.3 % accuracy</strong> with a ROC-AUC
+of <strong>0.998</strong>.</p>
+<p>Around this detector, the project is deliberately extended into a
+<strong>whole-syllabus computer-vision portfolio</strong>. A
+classical-CV toolkit of ten runnable modules demonstrates every
+remaining unit of the AIC341 outline — image formation, sampling and
+aliasing, feature detection, the Hough transform and RANSAC, geometric
+transformations, stereo and epipolar geometry, model fitting and
+regularisation, optimisation and back-propagation, optical flow and
+motion, and representation learning and generative models. Each module
+produces real result figures, all of which are presented and discussed
+in this report. The result is a single coherent project that maps onto
+the full course rather than a single topic.</p>
+<h1 id="introduction">2. Introduction</h1>
+<h2 id="background-and-motivation">2.1 Background and motivation</h2>
+<p>Between 2023 and 2026, text-to-image generators — Stable Diffusion,
+DALL·E 3, Midjourney and their successors — crossed the threshold of
+photorealism. The same capability that powers creative tools also powers
+harm: fabricated news imagery, non-consensual deepfakes, AI “art” passed
+off as human-made, and identity fraud. The defensive response is
+<strong>synthetic-image detection</strong>: an automated, trustworthy
+way to flag images that were never captured by a camera.</p>
+<p>A detector is only useful if practitioners can trust it, and trust
+requires <em>explanation</em>. VeriVision is therefore designed around
+two goals at once — <strong>accuracy</strong> and
+<strong>interpretability</strong> — so that every verdict comes with the
+visual evidence behind it.</p>
+<h2 id="objectives">2.2 Objectives</h2>
+<ol type="1">
+<li>Build a complete, reproducible deep-learning pipeline for
+REAL-vs-FAKE image classification.</li>
+<li>Design a preprocessing stage that exposes the frequency-domain
+artefacts of generative models to the network.</li>
+<li>Train and fairly compare a from-scratch CNN against a
+transfer-learning model.</li>
+<li>Make every prediction explainable through Grad-CAM saliency
+maps.</li>
+<li><strong>Extend the project to cover the entire AIC341
+syllabus</strong> with a runnable classical-computer-vision
+toolkit.</li>
+</ol>
+<h2 id="scope-from-a-single-topic-to-the-whole-syllabus">2.3 Scope —
+from a single topic to the whole syllabus</h2>
+<p>The detection system corresponds most directly to <strong>Unit
+5</strong> (learning in computer vision) and <strong>Unit 7</strong>
+(generative models). To make the project span the whole course, a second
+component — the <code>src/classical/</code> toolkit — was implemented.
+It contains ten modules, each mapped to a course unit, each producing
+genuine result figures from real images. Sections 4–10 of this report
+walk through that toolkit one unit at a time. Section 11 maps the entire
+project back onto the course learning outcomes.</p>
+<h2 id="structure-of-this-report">2.4 Structure of this report</h2>
+<p>Section 3 documents the VeriVision detector end to end. Sections 4
+through 10 present the classical-CV toolkit, one course unit per
+section, each with its result figures and discussion. Section 11 gives
+the CLO mapping, Section 12 lists every command needed to reproduce the
+work, and Section 13 concludes with limitations and future
+directions.</p>
+<h1 id="the-verivision-detection-system">3. The VeriVision Detection
+System</h1>
+<h2 id="problem-statement">3.1 Problem statement</h2>
+<p>Given an RGB image, decide whether it is <strong>REAL</strong>
+(captured by a physical camera) or <strong>FAKE</strong> (produced by a
+diffusion model), and produce a saliency map that shows which regions
+drove the decision. This is a binary image classification problem with
+an explicit interpretability requirement.</p>
+<h2 id="dataset-cifake">3.2 Dataset — CIFAKE</h2>
+<p>The project uses <strong>CIFAKE</strong> (Bird &amp; Lotfi, <em>IEEE
+Access</em>, 2024):</p>
+<ul>
+<li><strong>60,000 REAL</strong> images drawn from CIFAR-10 (ten
+everyday object classes).</li>
+<li><strong>60,000 FAKE</strong> images generated by Stable Diffusion
+v1.4, prompted to match each CIFAR-10 class.</li>
+<li>All images are <strong>32 × 32</strong> RGB.</li>
+<li>Splits: <strong>100,000</strong> training images (50k/50k balanced)
+and <strong>20,000</strong> test images (10k/10k balanced).</li>
+</ul>
+<p>A 10 % validation set is carved from the training split with a fixed
+seed; the 20,000-image test set is never touched until final
+evaluation.</p>
+<figure>
+<img src="figures/verivision_samples.png" style="width:92.0%"
+alt="Figure 1. CIFAKE sample images. The top row is REAL (CIFAR-10 photographs); the bottom row is FAKE (Stable Diffusion). At 32 × 32 resolution the two classes are extremely hard to separate by eye — which is exactly why an automated detector is needed." />
+<figcaption aria-hidden="true"><strong>Figure 1.</strong> CIFAKE sample
+images. The top row is REAL (CIFAR-10 photographs); the bottom row is
+FAKE (Stable Diffusion). At 32 × 32 resolution the two classes are
+extremely hard to separate by eye — which is exactly why an automated
+detector is needed.</figcaption>
+</figure>
+<h2 id="preprocessing-and-the-fft-channel">3.3 Preprocessing and the FFT
+channel</h2>
+<p><strong>Standard transforms.</strong> Training images are resized to
+the model’s input resolution, randomly horizontally flipped, given a
+mild random translation (±5 %), converted to tensors and
+channel-normalised. Validation and test images are only resized and
+normalised.</p>
+<p><strong>A deliberate restraint.</strong> Heavy Gaussian blur and
+aggressive down-scaling are <em>not</em> used as augmentations.
+Robustness studies on CIFAKE show that blur destroys the very
+high-frequency structure that distinguishes REAL from FAKE, collapsing
+detector accuracy. Avoiding it is a conscious design choice.</p>
+<p><strong>The FFT channel (our contribution).</strong> Diffusion models
+leave characteristic artefacts in the Fourier domain — cross/ring
+patterns in the magnitude spectrum and an unnatural high-frequency
+energy profile. Instead of training a separate spectral model,
+VeriVision computes the log-magnitude of the 2-D FFT of each image’s
+luminance channel and appends it as a <strong>fourth input
+channel</strong>, so a single network learns jointly from pixel and
+spectral evidence.</p>
+<figure>
+<img src="figures/verivision_fft.png" style="width:98.0%"
+alt="Figure 2. Frequency-domain analysis. Left and centre: mean FFT log-magnitude spectra of REAL and FAKE images. Right: their difference — the spectral “fingerprint” of the generator. The FFT channel makes this signal directly available to the network." />
+<figcaption aria-hidden="true"><strong>Figure 2.</strong>
+Frequency-domain analysis. Left and centre: mean FFT log-magnitude
+spectra of REAL and FAKE images. Right: their difference — the spectral
+“fingerprint” of the generator. The FFT channel makes this signal
+directly available to the network.</figcaption>
+</figure>
+<h2 id="model-architectures">3.4 Model architectures</h2>
+<p><strong>Custom CNN (from scratch).</strong> Three convolutional
+blocks (32 → 64 → 128 channels), each a doubled Conv–BatchNorm–ReLU
+stack followed by 2 × 2 max-pooling, then global average pooling and a
+two-layer classifier head with dropout. About 0.2 M trainable
+parameters. It operates at the native 32 × 32 resolution.</p>
+<p><strong>ResNet-50 (transfer learning).</strong> A torchvision
+ResNet-50 with ImageNet pretrained weights; the final fully-connected
+layer is replaced with a dropout + two-way classifier. Inputs are
+up-sampled to 224 × 224 to match the pretraining distribution, and all
+layers are fine-tuned.</p>
+<p>When the FFT channel is enabled, the first convolution is surgically
+widened from three to four input channels — the RGB filter weights are
+copied verbatim and the new channel is initialised from their mean,
+preserving the pretrained features.</p>
+<h2 id="training-methodology">3.5 Training methodology</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Custom CNN</th>
+<th>ResNet-50</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optimiser</td>
+<td>AdamW (lr 1e-3, weight decay 1e-4)</td>
+<td>AdamW (lr 1e-3, weight decay 1e-4)</td>
+</tr>
+<tr>
+<td>LR schedule</td>
+<td>Cosine annealing</td>
+<td>Cosine annealing</td>
+</tr>
+<tr>
+<td>Loss</td>
+<td>Cross-entropy</td>
+<td>Cross-entropy</td>
+</tr>
+<tr>
+<td>Batch size</td>
+<td>128</td>
+<td>64</td>
+</tr>
+<tr>
+<td>Epoch budget</td>
+<td>10</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Early stopping</td>
+<td>Patience 3 on val-loss</td>
+<td>Patience 3 on val-loss</td>
+</tr>
+</tbody>
+</table>
+<p>All runs are seeded across <code>random</code>, <code>numpy</code>
+and <code>torch</code>, with deterministic cuDNN, so results are
+reproducible.</p>
+<figure>
+<img src="figures/training_curves_custom_cnn.png" style="width:88.0%"
+alt="Figure 3. Training curves for the custom CNN — loss and accuracy, training vs. validation. The close gap between the two curves indicates the model generalises well rather than memorising." />
+<figcaption aria-hidden="true"><strong>Figure 3.</strong> Training
+curves for the custom CNN — loss and accuracy, training vs. validation.
+The close gap between the two curves indicates the model generalises
+well rather than memorising.</figcaption>
+</figure>
+<figure>
+<img src="figures/training_curves_resnet50.png" style="width:88.0%"
+alt="Figure 4. Training curves for the ResNet-50 transfer-learning model. The pretrained backbone converges in far fewer epochs than the from-scratch CNN." />
+<figcaption aria-hidden="true"><strong>Figure 4.</strong> Training
+curves for the ResNet-50 transfer-learning model. The pretrained
+backbone converges in far fewer epochs than the from-scratch
+CNN.</figcaption>
+</figure>
+<h2 id="results-and-evaluation">3.6 Results and evaluation</h2>
+<p>Both models were evaluated once, on the untouched 20,000-image CIFAKE
+test set.</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Custom CNN</th>
+<th>ResNet-50</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accuracy</td>
+<td>96.77 %</td>
+<td><strong>98.26 %</strong></td>
+</tr>
+<tr>
+<td>Precision</td>
+<td>96.96 %</td>
+<td>98.19 %</td>
+</tr>
+<tr>
+<td>Recall</td>
+<td>96.57 %</td>
+<td>98.33 %</td>
+</tr>
+<tr>
+<td>F1-score</td>
+<td>96.76 %</td>
+<td>98.26 %</td>
+</tr>
+<tr>
+<td>ROC-AUC</td>
+<td>0.9953</td>
+<td><strong>0.9983</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The ResNet-50 model is the stronger detector on every metric, as
+expected from a deep pretrained backbone. The remarkable result is the
+<strong>from-scratch CNN</strong>: with only ~0.2 M parameters it still
+reaches 96.8 % accuracy, confirming that the REAL-vs-FAKE signal in
+CIFAKE is strong and learnable even by a small network.</p>
+<figure>
+<img src="figures/confusion_custom_cnn.png" style="width:58.0%"
+alt="Figure 5. Confusion matrix — custom CNN. Of 10,000 FAKE images 9,697 are caught; of 10,000 REAL images 9,657 are correctly passed. Errors are well balanced between the two classes." />
+<figcaption aria-hidden="true"><strong>Figure 5.</strong> Confusion
+matrix — custom CNN. Of 10,000 FAKE images 9,697 are caught; of 10,000
+REAL images 9,657 are correctly passed. Errors are well balanced between
+the two classes.</figcaption>
+</figure>
+<figure>
+<img src="figures/confusion_resnet50.png" style="width:58.0%"
+alt="Figure 6. Confusion matrix — ResNet-50. Both error types fall below 2 %, with only 181 false alarms and 167 missed fakes." />
+<figcaption aria-hidden="true"><strong>Figure 6.</strong> Confusion
+matrix — ResNet-50. Both error types fall below 2 %, with only 181 false
+alarms and 167 missed fakes.</figcaption>
+</figure>
+<figure>
+<img src="figures/roc_custom_cnn.png" style="width:58.0%"
+alt="Figure 7. ROC curve — custom CNN (AUC = 0.995). The curve hugs the top-left corner, showing excellent separability across all decision thresholds." />
+<figcaption aria-hidden="true"><strong>Figure 7.</strong> ROC curve —
+custom CNN (AUC = 0.995). The curve hugs the top-left corner, showing
+excellent separability across all decision thresholds.</figcaption>
+</figure>
+<figure>
+<img src="figures/roc_resnet50.png" style="width:58.0%"
+alt="Figure 8. ROC curve — ResNet-50 (AUC = 0.998), near-perfect ranking of REAL vs. FAKE." />
+<figcaption aria-hidden="true"><strong>Figure 8.</strong> ROC curve —
+ResNet-50 (AUC = 0.998), near-perfect ranking of REAL
+vs. FAKE.</figcaption>
+</figure>
+<h2 id="explainability-with-grad-cam">3.7 Explainability with
+Grad-CAM</h2>
+<p>Every prediction is accompanied by a <strong>Grad-CAM</strong>
+heatmap. Grad-CAM weighs the final convolutional feature maps by the
+gradient of the predicted class, producing a coarse map of “where the
+network looked”. For the custom CNN the target layer is the last
+convolution; for ResNet-50 it is the final bottleneck block. Heatmaps
+are upsampled and blended over the input at 40 % opacity. Consistent
+with the CIFAKE literature, the maps show detectors keying on
+<strong>background texture and high-frequency content</strong> rather
+than on the foreground object — exactly the region where generative
+artefacts concentrate. The Grad-CAM grid is regenerated by
+<code>scripts/demo.py</code> after training and is also shown live in
+the Streamlit demo app.</p>
+<h1 id="unit-1-introduction-to-computer-vision">4. Unit 1 — Introduction
+to Computer Vision</h1>
+<p><strong>Syllabus topics:</strong> overview, image formation,
+geometric vision, the CV pipeline, applications.
+<strong>Module:</strong>
+<code>src/classical/unit1_image_basics.py</code>.</p>
+<h2 id="image-formation-the-pinhole-camera">4.1 Image formation — the
+pinhole camera</h2>
+<p>Every real photograph is formed by perspective projection: a 3-D
+world point <strong>X</strong> maps to a 2-D pixel <strong>x</strong>
+through the camera equation <strong>x ≈ K [R | t] X</strong>, where
+<strong>K</strong> holds the intrinsic parameters (focal length,
+principal point) and <strong>[R | t]</strong> the camera’s pose. This is
+the physical process that the FAKE half of CIFAKE never undergoes —
+which is the deepest reason its image statistics differ.</p>
+<figure>
+<img src="figures/classical/unit1_image_formation.png"
+style="width:92.0%"
+alt="Figure 9. Image formation. A 3-D wireframe cube (left) is projected through a pinhole camera model into the 2-D image plane (right). The far face of the cube appears smaller — the hallmark of perspective projection." />
+<figcaption aria-hidden="true"><strong>Figure 9.</strong> Image
+formation. A 3-D wireframe cube (left) is projected through a pinhole
+camera model into the 2-D image plane (right). The far face of the cube
+appears smaller — the hallmark of perspective projection.</figcaption>
+</figure>
+<h2 id="the-digital-image-and-colour">4.2 The digital image and
+colour</h2>
+<p>A digital image is a sampled grid of intensities. It can be split
+into colour channels, reduced to a luminance image, and summarised by an
+intensity histogram. Different <strong>colour spaces</strong> expose
+different cues: RGB is the display space, HSV separates colour from
+brightness, and CIELAB is perceptually uniform.</p>
+<figure>
+<img src="figures/classical/unit1_channels_histogram.png"
+style="width:92.0%"
+alt="Figure 10. A digital image as a grid of intensities: RGB image, luminance, per-channel histogram, and the three colour channels shown separately." />
+<figcaption aria-hidden="true"><strong>Figure 10.</strong> A digital
+image as a grid of intensities: RGB image, luminance, per-channel
+histogram, and the three colour channels shown separately.</figcaption>
+</figure>
+<figure>
+<img src="figures/classical/unit1_color_spaces.png" style="width:92.0%"
+alt="Figure 11. The same image in RGB, HSV and CIELAB colour spaces. Separating hue, saturation and lightness gives feature detectors more robust, illumination-tolerant signals to work with." />
+<figcaption aria-hidden="true"><strong>Figure 11.</strong> The same
+image in RGB, HSV and CIELAB colour spaces. Separating hue, saturation
+and lightness gives feature detectors more robust, illumination-tolerant
+signals to work with.</figcaption>
+</figure>
+<h2 id="the-computer-vision-pipeline">4.3 The computer-vision
+pipeline</h2>
+<p>Almost every CV system follows the same pipeline: <strong>acquisition
+→ pre-processing → feature extraction → model/inference →
+decision</strong>. VeriVision is a concrete instance of it, and naming
+the stages makes the rest of this report easy to place.</p>
+<figure>
+<img src="figures/classical/unit1_cv_pipeline.png" style="width:98.0%"
+alt="Figure 12. The computer-vision pipeline as realised in VeriVision, from CIFAKE acquisition through the FFT-augmented preprocessing and CNN inference to the explained REAL/FAKE verdict." />
+<figcaption aria-hidden="true"><strong>Figure 12.</strong> The
+computer-vision pipeline as realised in VeriVision, from CIFAKE
+acquisition through the FFT-augmented preprocessing and CNN inference to
+the explained REAL/FAKE verdict.</figcaption>
+</figure>
+<h1 id="unit-2-sampling-multiscale-representations-and-features">5. Unit
+2 — Sampling, Multiscale Representations and Features</h1>
+<p><strong>Syllabus topics:</strong> image sampling &amp; aliasing,
+up/down-sampling, multiscale pyramids, edges, corners, blobs, local
+features &amp; keypoints, the Hough transform, RANSAC.
+<strong>Modules:</strong> <code>unit2_sampling</code>,
+<code>unit2_features</code>, <code>unit2_hough_ransac</code>.</p>
+<h2 id="sampling-and-aliasing">5.1 Sampling and aliasing</h2>
+<p>Sampling a signal below the Nyquist rate causes
+<strong>aliasing</strong>: high frequencies masquerade as false low
+frequencies. The cure is to low-pass filter <em>before</em>
+down-sampling.</p>
+<figure>
+<img src="figures/classical/unit2_aliasing.png" style="width:96.0%"
+alt="Figure 13. Sampling and aliasing. A zone-plate signal (left) is sub-sampled without a pre-filter (centre) — false low-frequency moiré rings appear — and with an anti-alias filter (right), which removes them." />
+<figcaption aria-hidden="true"><strong>Figure 13.</strong> Sampling and
+aliasing. A zone-plate signal (left) is sub-sampled without a pre-filter
+(centre) — false low-frequency moiré rings appear — and with an
+anti-alias filter (right), which removes them.</figcaption>
+</figure>
+<figure>
+<img src="figures/classical/unit2_resampling.png" style="width:98.0%"
+alt="Figure 14. Up-sampling cannot invent detail. A 32 × 32 image is enlarged with nearest, bilinear and bicubic interpolation; interpolation order only changes smoothness, not information content." />
+<figcaption aria-hidden="true"><strong>Figure 14.</strong> Up-sampling
+cannot invent detail. A 32 × 32 image is enlarged with nearest, bilinear
+and bicubic interpolation; interpolation order only changes smoothness,
+not information content.</figcaption>
+</figure>
+<h2 id="multiscale-image-pyramids">5.2 Multiscale image pyramids</h2>
+<p>Features live at different scales, so images are analysed as
+<strong>pyramids</strong>: a Gaussian pyramid is a stack of
+progressively blurred and shrunk copies; a Laplacian pyramid stores the
+band-pass detail lost between levels.</p>
+<figure>
+<img src="figures/classical/unit2_pyramids.png" style="width:98.0%"
+alt="Figure 15. Gaussian (top) and Laplacian (bottom) pyramids. The Gaussian pyramid is the coarse-to-fine representation feature detectors search; the Laplacian pyramid isolates detail band by band." />
+<figcaption aria-hidden="true"><strong>Figure 15.</strong> Gaussian
+(top) and Laplacian (bottom) pyramids. The Gaussian pyramid is the
+coarse-to-fine representation feature detectors search; the Laplacian
+pyramid isolates detail band by band.</figcaption>
+</figure>
+<h2 id="edges-corners-and-blobs">5.3 Edges, corners and blobs</h2>
+<p><strong>Edges</strong> are intensity discontinuities, found with
+gradient operators and refined by the Canny detector.
+<strong>Corners</strong> are points where intensity changes in every
+direction — stable, repeatable interest points (Harris).
+<strong>Blobs</strong> are roughly circular regions, detected across
+scale with the Laplacian-, Difference- and Determinant-of-Gaussian
+operators.</p>
+<figure>
+<img src="figures/classical/unit2_edges.png" style="width:98.0%"
+alt="Figure 16. Edge detection: raw Sobel gradients, gradient magnitude, and the full Canny detector with non-maximum suppression and hysteresis." />
+<figcaption aria-hidden="true"><strong>Figure 16.</strong> Edge
+detection: raw Sobel gradients, gradient magnitude, and the full Canny
+detector with non-maximum suppression and hysteresis.</figcaption>
+</figure>
+<figure>
+<img src="figures/classical/unit2_corners.png" style="width:92.0%"
+alt="Figure 17. Harris corner detection. The corner-response map (centre) peaks at locations where intensity varies in all directions; the detected corners are marked on the image (right)." />
+<figcaption aria-hidden="true"><strong>Figure 17.</strong> Harris corner
+detection. The corner-response map (centre) peaks at locations where
+intensity varies in all directions; the detected corners are marked on
+the image (right).</figcaption>
+</figure>
+<figure>
+<img src="figures/classical/unit2_blobs.png" style="width:96.0%"
+alt="Figure 18. Multi-scale blob detection with the Laplacian-, Difference- and Determinant-of-Gaussian operators. Each detector finds the coins and reports a characteristic scale." />
+<figcaption aria-hidden="true"><strong>Figure 18.</strong> Multi-scale
+blob detection with the Laplacian-, Difference- and
+Determinant-of-Gaussian operators. Each detector finds the coins and
+reports a characteristic scale.</figcaption>
+</figure>
+<h2 id="local-features-and-keypoint-matching">5.4 Local features and
+keypoint matching</h2>
+<p>A <strong>keypoint</strong> is an interest point plus a descriptor —
+a compact vector that characterises its neighbourhood. ORB descriptors
+can be matched between two views of a scene, which is the foundation of
+stitching, tracking and the stereo geometry of Unit 3.</p>
+<figure>
+<img src="figures/classical/unit2_keypoints.png" style="width:92.0%"
+alt="Figure 19. ORB keypoints detected in two views of the same scene (the second is a rotated, scaled, translated copy) and matched by descriptor with a cross-check. The consistent green lines are correct correspondences." />
+<figcaption aria-hidden="true"><strong>Figure 19.</strong> ORB keypoints
+detected in two views of the same scene (the second is a rotated,
+scaled, translated copy) and matched by descriptor with a cross-check.
+The consistent green lines are correct correspondences.</figcaption>
+</figure>
+<h2 id="the-hough-transform">5.5 The Hough transform</h2>
+<p>The <strong>Hough transform</strong> detects parametric shapes by
+letting every edge pixel <em>vote</em> in a parameter space; shapes
+appear as peaks in the accumulator. It is robust to noise and to gaps in
+the shape.</p>
+<figure>
+<img src="figures/classical/unit2_hough_lines.png" style="width:96.0%"
+alt="Figure 20. Hough line transform. Edge pixels vote in (angle, distance) space (centre); the three brightest peaks recover the three lines despite added noise." />
+<figcaption aria-hidden="true"><strong>Figure 20.</strong> Hough line
+transform. Edge pixels vote in (angle, distance) space (centre); the
+three brightest peaks recover the three lines despite added
+noise.</figcaption>
+</figure>
+<figure>
+<img src="figures/classical/unit2_hough_circles.png" style="width:96.0%"
+alt="Figure 21. Hough circle transform. Each edge pixel votes for possible circle centres, cleanly recovering the coins." />
+<figcaption aria-hidden="true"><strong>Figure 21.</strong> Hough circle
+transform. Each edge pixel votes for possible circle centres, cleanly
+recovering the coins.</figcaption>
+</figure>
+<h2 id="ransac-robust-model-fitting">5.6 RANSAC — robust model
+fitting</h2>
+<p><strong>RANSAC</strong> (RANdom SAmple Consensus) fits a model when
+the data are heavily contaminated with outliers. It repeatedly fits a
+minimal sample and keeps the hypothesis with the most inliers —
+succeeding where ordinary least squares is dragged off by the
+outliers.</p>
+<figure>
+<img src="figures/classical/unit2_ransac_line.png" style="width:70.0%"
+alt="Figure 22. RANSAC vs. least squares. With 40 % of the points being outliers, least squares (red dashed) is pulled badly off course, while RANSAC (green) recovers the true line." />
+<figcaption aria-hidden="true"><strong>Figure 22.</strong> RANSAC
+vs. least squares. With 40 % of the points being outliers, least squares
+(red dashed) is pulled badly off course, while RANSAC (green) recovers
+the true line.</figcaption>
+</figure>
+<h1 id="unit-3-geometric-vision-transformations-and-stereo">6. Unit 3 —
+Geometric Vision: Transformations and Stereo</h1>
+<p><strong>Syllabus topics:</strong> image transformations &amp;
+warping, stereo vision, depth from disparity, epipolar geometry, stereo
+rectification. <strong>Modules:</strong> <code>unit3_transforms</code>,
+<code>unit3_stereo</code>.</p>
+<h2 id="the-hierarchy-of-2-d-transformations">6.1 The hierarchy of 2-D
+transformations</h2>
+<p>Geometric transformations form a hierarchy of increasing freedom:
+translation (2 DoF), Euclidean (3), similarity (4), affine (6) and
+projective/homography (8). Each preserves a little less structure than
+the last; the homography is exactly the map between two images of a
+planar scene.</p>
+<figure>
+<img src="figures/classical/unit3_transformations.png"
+style="width:85.0%"
+alt="Figure 23. The hierarchy of 2-D geometric transformations, each applied to the same image and labelled with its degrees of freedom." />
+<figcaption aria-hidden="true"><strong>Figure 23.</strong> The hierarchy
+of 2-D geometric transformations, each applied to the same image and
+labelled with its degrees of freedom.</figcaption>
+</figure>
+<figure>
+<img src="figures/classical/unit3_warping.png" style="width:96.0%"
+alt="Figure 24. Non-rigid image warping. A coordinate map resamples pixels into a swirl (centre) and a sinusoidal wave (right) — the same warping machinery used for lens-distortion correction and stereo rectification." />
+<figcaption aria-hidden="true"><strong>Figure 24.</strong> Non-rigid
+image warping. A coordinate map resamples pixels into a swirl (centre)
+and a sinusoidal wave (right) — the same warping machinery used for
+lens-distortion correction and stereo rectification.</figcaption>
+</figure>
+<h2 id="stereo-vision-and-depth-from-disparity">6.2 Stereo vision and
+depth from disparity</h2>
+<p>Two horizontally displaced cameras see the same scene from slightly
+different viewpoints. The horizontal shift of a point between the two
+images is its <strong>disparity</strong>, and depth is inversely
+proportional to it: <strong>Z = f · B / d</strong>. A block-matching
+algorithm searches, for every pixel, the disparity that best aligns a
+window between the two views.</p>
+<figure>
+<img src="figures/classical/unit3_stereo_pair.png" style="width:98.0%"
+alt="Figure 25. A rectified stereo pair: left and right camera views and a red-cyan anaglyph in which the horizontal shift (disparity) is directly visible." />
+<figcaption aria-hidden="true"><strong>Figure 25.</strong> A rectified
+stereo pair: left and right camera views and a red-cyan anaglyph in
+which the horizontal shift (disparity) is directly visible.</figcaption>
+</figure>
+<figure>
+<img src="figures/classical/unit3_disparity.png" style="width:98.0%"
+alt="Figure 26. Depth from disparity. A winner-take-all block-matching estimator produces the disparity map (centre); inverting it gives a relative depth map (right) in which the foreground motorcycle clearly stands out from the background." />
+<figcaption aria-hidden="true"><strong>Figure 26.</strong> Depth from
+disparity. A winner-take-all block-matching estimator produces the
+disparity map (centre); inverting it gives a relative depth map (right)
+in which the foreground motorcycle clearly stands out from the
+background.</figcaption>
+</figure>
+<h2 id="epipolar-geometry">6.3 Epipolar geometry</h2>
+<p>The <strong>fundamental matrix F</strong> captures the geometry
+between two views: for any point in one image, its match in the other
+must lie on a single line — the <strong>epipolar line</strong>. F is
+estimated here from ORB matches with RANSAC. Because the stereo pair is
+rectified, the epipolar lines come out horizontal, which is what makes
+the 1-D disparity search of Section 6.2 valid.</p>
+<figure>
+<img src="figures/classical/unit3_epipolar.png" style="width:98.0%"
+alt="Figure 27. Epipolar geometry recovered from feature matches. For each coloured point, its epipolar line in the other view is drawn in the same colour; the lines are near-horizontal, confirming the pair is rectified." />
+<figcaption aria-hidden="true"><strong>Figure 27.</strong> Epipolar
+geometry recovered from feature matches. For each coloured point, its
+epipolar line in the other view is drawn in the same colour; the lines
+are near-horizontal, confirming the pair is rectified.</figcaption>
+</figure>
+<h1 id="unit-4-model-fitting-and-regularisation">7. Unit 4 — Model
+Fitting and Regularisation</h1>
+<p><strong>Syllabus topics:</strong> model fitting, regularisation,
+kernel regression, polynomial curve fitting, over- and under-fitting.
+<strong>Module:</strong> <code>unit4_model_fitting</code>.</p>
+<p>These ideas are the statistical foundation of the deep models in Unit
+5: a CNN is simply a very expressive fitted model, and weight decay is
+ridge regression.</p>
+<h2 id="polynomial-curve-fitting-and-model-capacity">7.1 Polynomial
+curve fitting and model capacity</h2>
+<p>Fitting polynomials of increasing degree to the same noisy data shows
+the core trade-off: too low a degree <strong>under-fits</strong> (cannot
+capture the trend), too high a degree <strong>over-fits</strong> (chases
+the noise).</p>
+<figure>
+<img src="figures/classical/unit4_polyfit.png" style="width:82.0%"
+alt="Figure 28. Polynomial curve fitting. Degree 1 under-fits, degree 3 fits well, and degrees 9 and 15 over-fit — wiggling through every noisy sample instead of capturing the underlying sine." />
+<figcaption aria-hidden="true"><strong>Figure 28.</strong> Polynomial
+curve fitting. Degree 1 under-fits, degree 3 fits well, and degrees 9
+and 15 over-fit — wiggling through every noisy sample instead of
+capturing the underlying sine.</figcaption>
+</figure>
+<h2 id="the-bias-variance-trade-off">7.2 The bias-variance
+trade-off</h2>
+<p>Plotting training and test error against model complexity reveals the
+classic picture: training error falls monotonically, but test error is
+<strong>U-shaped</strong>. The minimum of that U is the
+best-generalising model.</p>
+<figure>
+<img src="figures/classical/unit4_over_underfitting.png"
+style="width:78.0%"
+alt="Figure 29. The bias-variance trade-off, averaged over many training sets. Training error keeps falling, but test error bottoms out around degree 5 and then rises as the model begins to over-fit." />
+<figcaption aria-hidden="true"><strong>Figure 29.</strong> The
+bias-variance trade-off, averaged over many training sets. Training
+error keeps falling, but test error bottoms out around degree 5 and then
+rises as the model begins to over-fit.</figcaption>
+</figure>
+<h2 id="regularisation">7.3 Regularisation</h2>
+<p><strong>Regularisation</strong> lets us keep a high-capacity model
+but penalise complexity. Ridge (L2) regularisation adds a penalty on the
+squared weights; as the penalty grows, an over-capacity degree-15 model
+is pulled back to a sensible fit.</p>
+<figure>
+<img src="figures/classical/unit4_regularization.png"
+style="width:82.0%"
+alt="Figure 30. Ridge regularisation. The same degree-15 model, from no penalty (severe over-fitting) to a strong L2 penalty that smooths the fit back towards the true function." />
+<figcaption aria-hidden="true"><strong>Figure 30.</strong> Ridge
+regularisation. The same degree-15 model, from no penalty (severe
+over-fitting) to a strong L2 penalty that smooths the fit back towards
+the true function.</figcaption>
+</figure>
+<h2 id="kernel-regression">7.4 Kernel regression</h2>
+<p><strong>Kernel regression</strong> is a non-parametric alternative:
+the prediction at a point is a locally weighted average of the data. The
+kernel bandwidth plays the role of model capacity — wide kernels
+under-fit, narrow kernels over-fit.</p>
+<figure>
+<img src="figures/classical/unit4_kernel_regression.png"
+style="width:96.0%"
+alt="Figure 31. RBF kernel regression at three bandwidths, showing the same capacity trade-off in a non-parametric setting." />
+<figcaption aria-hidden="true"><strong>Figure 31.</strong> RBF kernel
+regression at three bandwidths, showing the same capacity trade-off in a
+non-parametric setting.</figcaption>
+</figure>
+<h1 id="unit-5-learning-in-computer-vision">8. Unit 5 — Learning in
+Computer Vision</h1>
+<p><strong>Syllabus topics:</strong> supervised learning, neural
+networks, SGD, optimisers, back-propagation, convolutional neural
+networks and architectures. <strong>Module:</strong>
+<code>unit5_learning.py</code> — and the trained VeriVision CNNs of
+Section 3.</p>
+<h2 id="convolution-the-cnn-building-block">8.1 Convolution — the CNN
+building block</h2>
+<p>A convolutional layer slides small <strong>kernels</strong> over the
+image. Hand-designed kernels blur, sharpen, emboss or detect edges; a
+CNN simply <em>learns</em> the kernels that best serve the task instead
+of having an engineer specify them.</p>
+<figure>
+<img src="figures/classical/unit5_convolution.png" style="width:98.0%"
+alt="Figure 32. Eight hand-designed convolution kernels applied to one image. A CNN layer performs exactly this operation — but with kernels learned by back-propagation." />
+<figcaption aria-hidden="true"><strong>Figure 32.</strong> Eight
+hand-designed convolution kernels applied to one image. A CNN layer
+performs exactly this operation — but with kernels learned by
+back-propagation.</figcaption>
+</figure>
+<h2 id="optimisers-and-gradient-descent">8.2 Optimisers and gradient
+descent</h2>
+<p>Networks are trained by <strong>gradient descent</strong> on a loss
+surface. Plain SGD struggles on ill-conditioned surfaces;
+<strong>momentum</strong> accelerates it, and <strong>Adam</strong>
+adapts a per-parameter step size. VeriVision is trained with AdamW for
+exactly this robustness.</p>
+<figure>
+<img src="figures/classical/unit5_optimizers.png" style="width:98.0%"
+alt="Figure 33. Optimiser comparison on an ill-conditioned loss surface. Plain SGD crawls; momentum and Adam reach the minimum far faster — the reason adaptive optimisers are the default for training CNNs." />
+<figcaption aria-hidden="true"><strong>Figure 33.</strong> Optimiser
+comparison on an ill-conditioned loss surface. Plain SGD crawls;
+momentum and Adam reach the minimum far faster — the reason adaptive
+optimisers are the default for training CNNs.</figcaption>
+</figure>
+<h2 id="a-neural-network-trained-from-scratch-by-back-propagation">8.3 A
+neural network trained from scratch by back-propagation</h2>
+<p>To make back-propagation concrete, a two-layer neural network was
+implemented in pure NumPy — forward pass, manual gradient computation by
+the chain rule, and an SGD update — and trained on a
+non-linearly-separable dataset.</p>
+<figure>
+<img src="figures/classical/unit5_neural_network.png"
+style="width:98.0%"
+alt="Figure 34. A from-scratch neural network. Left: the non-linear decision boundary it learns. Right: the training loss falling under back-propagation + SGD. This is the same learning principle that trains the VeriVision CNNs, in miniature." />
+<figcaption aria-hidden="true"><strong>Figure 34.</strong> A
+from-scratch neural network. Left: the non-linear decision boundary it
+learns. Right: the training loss falling under back-propagation + SGD.
+This is the same learning principle that trains the VeriVision CNNs, in
+miniature.</figcaption>
+</figure>
+<p>Scaling this principle up — many layers, convolutional
+weight-sharing, millions of parameters — gives the custom CNN and
+ResNet-50 of Section 3. <strong>CNN architectures</strong> in the
+syllabus are represented directly by those two trained models and their
+results.</p>
+<h1 id="unit-6-motion-and-change-detection">9. Unit 6 — Motion and
+Change Detection</h1>
+<p><strong>Syllabus topics:</strong> translational alignment &amp;
+motion estimation, 3-D motion and its 2-D projection, optical-flow
+estimation, perception &amp; scene understanding.
+<strong>Module:</strong> <code>unit6_motion.py</code>.</p>
+<h2 id="optical-flow">9.1 Optical flow</h2>
+<p><strong>Optical flow</strong> is the per-pixel apparent motion
+between two frames. Estimating it is the basis of tracking, video
+stabilisation and action recognition.</p>
+<figure>
+<img src="figures/classical/unit6_optical_flow.png" style="width:96.0%"
+alt="Figure 35. Dense optical flow between two frames of a rotating scene. Colour encodes motion direction and arrows show the flow vectors; the rotational pattern is recovered cleanly." />
+<figcaption aria-hidden="true"><strong>Figure 35.</strong> Dense optical
+flow between two frames of a rotating scene. Colour encodes motion
+direction and arrows show the flow vectors; the rotational pattern is
+recovered cleanly.</figcaption>
+</figure>
+<h2 id="translational-motion-estimation">9.2 Translational motion
+estimation</h2>
+<p>The simplest motion model is a pure translation. <strong>Phase
+correlation</strong> recovers an unknown shift between two frames to
+sub-pixel accuracy — the “translational alignment” of the syllabus — and
+is used to align and stabilise frames.</p>
+<figure>
+<img src="figures/classical/unit6_motion_estimation.png"
+style="width:98.0%"
+alt="Figure 36. Translational motion estimation by phase correlation. A known shift is recovered accurately; the red/green overlay shows the ghosting before alignment and its removal afterwards." />
+<figcaption aria-hidden="true"><strong>Figure 36.</strong> Translational
+motion estimation by phase correlation. A known shift is recovered
+accurately; the red/green overlay shows the ghosting before alignment
+and its removal afterwards.</figcaption>
+</figure>
+<h2 id="change-detection">9.3 Change detection</h2>
+<p>When the camera is static, <strong>frame differencing</strong>
+isolates what moved. Thresholding the absolute difference and cleaning
+it morphologically yields a change mask — the core of video
+surveillance.</p>
+<figure>
+<img src="figures/classical/unit6_change_detection.png"
+style="width:98.0%"
+alt="Figure 37. Change detection by frame differencing. The absolute difference between two frames is thresholded into a mask, and the changed region is localised with a bounding box." />
+<figcaption aria-hidden="true"><strong>Figure 37.</strong> Change
+detection by frame differencing. The absolute difference between two
+frames is thresholded into a mask, and the changed region is localised
+with a bounding box.</figcaption>
+</figure>
+<h1 id="unit-7-generative-models-and-representation-learning">10. Unit 7
+— Generative Models and Representation Learning</h1>
+<p><strong>Syllabus topics:</strong> representation learning, perceptual
+grouping, generative models, conditional generative models.
+<strong>Module:</strong> <code>unit7_representation.py</code> — and
+VeriVision itself, which <em>detects</em> conditional generative
+models.</p>
+<h2 id="representation-learning-with-pca">10.1 Representation learning
+with PCA</h2>
+<p><strong>Representation learning</strong> seeks compact features that
+expose the structure of data. PCA is its linear archetype: it learns
+“eigen-images” — directions of maximum variance — and an image can be
+reconstructed from just a few coefficients. PCA is the linear cousin of
+the autoencoder.</p>
+<figure>
+<img src="figures/classical/unit7_pca_eigenimages.png"
+style="width:98.0%"
+alt="Figure 38. PCA representation learning. Top: the mean image and the leading principal components (“eigen-digits”). Bottom: a digit reconstructed from an increasing number of components." />
+<figcaption aria-hidden="true"><strong>Figure 38.</strong> PCA
+representation learning. Top: the mean image and the leading principal
+components (“eigen-digits”). Bottom: a digit reconstructed from an
+increasing number of components.</figcaption>
+</figure>
+<figure>
+<img src="figures/classical/unit7_embedding.png" style="width:96.0%"
+alt="Figure 39. Two-dimensional embeddings of 64-D digit images. PCA (linear) gives partial separation; t-SNE (non-linear) resolves the ten classes into clean clusters — a good representation makes classes separable." />
+<figcaption aria-hidden="true"><strong>Figure 39.</strong>
+Two-dimensional embeddings of 64-D digit images. PCA (linear) gives
+partial separation; t-SNE (non-linear) resolves the ten classes into
+clean clusters — a good representation makes classes
+separable.</figcaption>
+</figure>
+<h2 id="perceptual-grouping-segmentation">10.2 Perceptual grouping —
+segmentation</h2>
+<p><strong>Perceptual grouping</strong> partitions an image into
+coherent regions. Superpixel and graph-based segmentation algorithms
+group pixels by colour and proximity — a compact mid-level
+representation for downstream recognition.</p>
+<figure>
+<img src="figures/classical/unit7_segmentation.png" style="width:98.0%"
+alt="Figure 40. Perceptual grouping. SLIC superpixels, Felzenszwalb graph-cut, Quickshift, and k-means colour clustering each segment the image into coherent regions." />
+<figcaption aria-hidden="true"><strong>Figure 40.</strong> Perceptual
+grouping. SLIC superpixels, Felzenszwalb graph-cut, Quickshift, and
+k-means colour clustering each segment the image into coherent
+regions.</figcaption>
+</figure>
+<h2 id="generative-models">10.3 Generative models</h2>
+<p>A <strong>generative model</strong> learns the distribution of data
+so it can synthesise new samples. A simple linear generative model fits
+PCA, treats the component scores as a Gaussian latent code, samples
+fresh codes and decodes them. This is the same <em>encode → sample
+latent → decode</em> recipe behind VAEs; modern diffusion models replace
+the linear decoder with a deep iterative denoiser, and
+<strong>conditional</strong> generative models add a text prompt.</p>
+<figure>
+<img src="figures/classical/unit7_generative.png" style="width:82.0%"
+alt="Figure 41. A linear generative model. Forty brand-new digit images sampled from a learned latent Gaussian. The samples are crude — which is precisely why deep generative models (GANs, VAEs, diffusion) were developed." />
+<figcaption aria-hidden="true"><strong>Figure 41.</strong> A linear
+generative model. Forty brand-new digit images sampled from a learned
+latent Gaussian. The samples are crude — which is precisely why deep
+generative models (GANs, VAEs, diffusion) were developed.</figcaption>
+</figure>
+<h2 id="the-connection-back-to-verivision">10.4 The connection back to
+VeriVision</h2>
+<p>This unit closes the loop. The FAKE images that VeriVision is trained
+to detect are the output of a <strong>conditional generative
+model</strong> — Stable Diffusion prompted with a class name.
+Understanding how generative models work (this unit) is what makes it
+possible to <em>detect</em> them (Section 3). VeriVision is, in effect,
+the adversary of Unit 7’s generators.</p>
+<h1 id="course-learning-outcome-mapping">11. Course Learning Outcome
+Mapping</h1>
+<p>The project was built to evidence the AIC341 lab learning outcomes
+and to touch every unit of the syllabus.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Unit</th>
+<th>Syllabus area</th>
+<th>Project component</th>
+<th>Report section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Introduction &amp; image formation</td>
+<td><code>unit1_image_basics</code></td>
+<td>§4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Sampling, features, Hough, RANSAC</td>
+<td><code>unit2_sampling/features/hough_ransac</code></td>
+<td>§5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Transformations, stereo, epipolar geometry</td>
+<td><code>unit3_transforms</code>, <code>unit3_stereo</code></td>
+<td>§6</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Model fitting &amp; regularisation</td>
+<td><code>unit4_model_fitting</code></td>
+<td>§7</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Learning, CNNs, optimisation</td>
+<td><code>unit5_learning</code> + VeriVision CNNs</td>
+<td>§3, §8</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Motion &amp; change detection</td>
+<td><code>unit6_motion</code></td>
+<td>§9</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Generative models &amp; representation learning</td>
+<td><code>unit7_representation</code> + VeriVision</td>
+<td>§3, §10</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Lab CLO</th>
+<th>Statement</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CLO-5</strong></td>
+<td>Implement core CV algorithms using appropriate tools and
+libraries</td>
+<td>Ten classical-CV modules in <code>src/classical/</code> plus the
+full VeriVision training and evaluation pipeline — all runnable, all
+producing real figures.</td>
+</tr>
+<tr>
+<td><strong>CLO-6</strong></td>
+<td>Develop a CV application in a team environment</td>
+<td>VeriVision built end to end (data → preprocessing → models →
+evaluation → Streamlit demo → report) by a three-member team with
+divided responsibilities (see Appendix).</td>
+</tr>
+</tbody>
+</table>
+<h1 id="how-to-run-the-project">12. How to Run the Project</h1>
+<p>All commands are run from the project root.</p>
+<p><strong>Environment</strong></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv .venv <span class="kw">&amp;&amp;</span> <span class="bu">source</span> .venv/bin/activate</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code></pre></div>
+<p><strong>Classical-CV toolkit (Units 1–7) — no GPU or dataset
+needed</strong></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> scripts.run_classical <span class="at">--unit</span> all      <span class="co"># writes reports/figures/classical/</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> scripts.run_classical <span class="at">--unit</span> 3        <span class="co"># a single unit</span></span></code></pre></div>
+<p><strong>VeriVision detector</strong></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data figures (works from the bundled sample images)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> scripts.verivision_figures</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Train / evaluate / predict (needs the CIFAKE dataset — see data/README.md)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> scripts.train     <span class="at">--model</span> resnet50 <span class="at">--epochs</span> 5</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> scripts.evaluate  <span class="at">--checkpoint</span> models_ckpt/resnet50.pt</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> scripts.predict   <span class="at">--checkpoint</span> models_ckpt/resnet50.pt <span class="at">--image</span> my.jpg <span class="at">--gradcam</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Interactive web demo</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">streamlit</span> run app/streamlit_app.py</span></code></pre></div>
+<p><strong>Rebuild this report</strong></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> scripts.build_report          <span class="co"># produces the .docx and .pdf</span></span></code></pre></div>
+<h1 id="conclusion-limitations-and-future-work">13. Conclusion,
+Limitations and Future Work</h1>
+<h2 id="conclusion">13.1 Conclusion</h2>
+<p>VeriVision delivers a working, interpretable AI-image detector: a
+from-scratch CNN at <strong>96.8 %</strong> accuracy and a ResNet-50
+model at <strong>98.3 %</strong> accuracy with a <strong>0.998</strong>
+ROC-AUC on the CIFAKE test set, with an FFT-channel preprocessing
+contribution and Grad-CAM explanations throughout. Around that detector,
+a ten-module classical-CV toolkit demonstrates <strong>every remaining
+unit</strong> of the AIC341 syllabus with real, reproducible result
+figures. The project therefore stands as a coherent whole-course
+portfolio rather than a single-topic exercise.</p>
+<h2 id="limitations">13.2 Limitations</h2>
+<ul>
+<li><strong>Resolution.</strong> CIFAKE is 32 × 32; real-world generated
+images are far larger, so the detector may not transfer directly.</li>
+<li><strong>Generator coverage.</strong> The FAKE images come only from
+Stable Diffusion v1.4; generalisation to Midjourney, DALL·E 3 or newer
+models is untested.</li>
+<li><strong>Classical demos</strong> use standard sample images for
+clarity and speed; they illustrate the algorithms rather than benchmark
+them.</li>
+</ul>
+<h2 id="future-work">13.3 Future work</h2>
+<ul>
+<li>Move to a high-resolution, multi-generator dataset and add test-time
+robustness evaluation (compression, blur, re-sampling).</li>
+<li>Fuse the classical and deep pipelines — for example, feed Fourier
+and wavelet statistics alongside CNN features.</li>
+<li>Extend the detector to video using the optical-flow and
+change-detection tools of Unit 6.</li>
+</ul>
+<h1 id="references">14. References</h1>
+<ol type="1">
+<li>Bird, J. J., &amp; Lotfi, A. (2024). <em>CIFAKE: Image
+Classification and Explainable Identification of AI-Generated Synthetic
+Images.</em> IEEE Access.</li>
+<li>Selvaraju, R. R., et al. (2017). <em>Grad-CAM: Visual Explanations
+from Deep Networks via Gradient-based Localization.</em> ICCV.</li>
+<li>He, K., Zhang, X., Ren, S., &amp; Sun, J. (2016). <em>Deep Residual
+Learning for Image Recognition.</em> CVPR.</li>
+<li>Torralba, A., Isola, P., &amp; Freeman, W. T. (2024).
+<em>Foundations of Computer Vision.</em> MIT Press.</li>
+<li>Szeliski, R. (2022). <em>Computer Vision: Algorithms and
+Applications</em> (2nd ed.). Springer.</li>
+<li>Verdhan, V. (2021). <em>Computer Vision Using Deep Learning.</em>
+Apress.</li>
+<li>Lowe, D. G. (2004). <em>Distinctive Image Features from
+Scale-Invariant Keypoints.</em> IJCV.</li>
+<li>Fischler, M. A., &amp; Bolles, R. C. (1981). <em>Random Sample
+Consensus.</em> Communications of the ACM.</li>
+<li>van der Walt, S., et al. (2014). <em>scikit-image: Image Processing
+in Python.</em> PeerJ.</li>
+</ol>
+<h1 id="appendix-team-and-contributions">15. Appendix — Team and
+Contributions</h1>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Member</th>
+<th>Registration</th>
+<th>Primary responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shahzaib Haider Rizvi</td>
+<td>FA23-BAI-050</td>
+<td>Data pipeline, preprocessing, the FFT-channel contribution</td>
+</tr>
+<tr>
+<td>Aymen Ali Seemab</td>
+<td>FA23-BAI-011</td>
+<td>Model architectures, training loop, classical-CV toolkit</td>
+</tr>
+<tr>
+<td>Nimra Tahseen Yousaf</td>
+<td>FA23-BAI-043</td>
+<td>Evaluation, Grad-CAM, Streamlit demo, report</td>
+</tr>
+</tbody>
+</table>
+<p><em>Responsibilities were shared collaboratively; the table records
+each member’s primary focus area.</em></p>
+<hr />
+<p><em>VeriVision — submitted for AIC341 Introduction to Computer
+Vision, COMSATS University Islamabad, May 2026.</em></p>
+</body>
+</html>

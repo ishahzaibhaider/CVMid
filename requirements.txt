@@ -1,19 +1,25 @@
+# ── Deep-learning detector (VeriVision core: scripts/train.py, evaluate.py …) ──
 torch>=2.1.0
 torchvision>=0.16.0
+grad-cam>=1.5.0          # Grad-CAM explainability
+streamlit>=1.30.0        # interactive web demo
+
+# ── Classical computer-vision toolkit (src/classical/, scripts/run_classical.py)
 numpy>=1.24.0
-pillow>=10.0.0
-matplotlib>=3.7.0
-seaborn>=0.13.0
+scipy>=1.11.0
+scikit-image>=0.22.0
 scikit-learn>=1.3.0
+matplotlib>=3.7.0
+pillow>=10.0.0
+
+# ── Shared utilities ──
+seaborn>=0.13.0
 tqdm>=4.65.0
 pandas>=2.0.0
 
-# Explainability
-grad-cam>=1.5.0
+# ── Report generation (scripts/build_report.py — optional) ──
+# Also needs the `pandoc` CLI on PATH; PDF export uses headless Chrome.
 
-# Interactive demo
-streamlit>=1.30.0
-
-# Jupyter (optional, for notebook walkthrough)
+# ── Jupyter (optional, for notebook walkthroughs) ──
 jupyter>=1.0.0
 ipykernel>=6.25.0

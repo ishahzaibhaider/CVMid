@@ -1,9 +1,14 @@
-# VeriVision — Real vs AI-Generated Image Detector
+# VeriVision — Real vs AI-Generated Image Detector + Full-Syllabus CV Toolkit
 
-> **Introduction to Computer Vision — Mid Project**
-> Detecting AI-generated images using deep learning + frequency-domain analysis.
+> **AIC341 Introduction to Computer Vision — Course Project**
+> A deep-learning AI-image detector, **plus** a runnable demonstration of every unit of the course syllabus.
 
-A fully working pipeline that (a) takes the CIFAKE dataset, (b) applies a unique preprocessing stack combining standard transforms with FFT-based spectral features, (c) trains two models (a from-scratch CNN and a ResNet-50 transfer-learning model), and (d) produces predictions with Grad-CAM visualisations that show *why* the model called an image real or fake.
+This repository has two halves that fit together:
+
+1. **VeriVision** — a fully working deep-learning pipeline that (a) takes the CIFAKE dataset, (b) applies a unique preprocessing stack combining standard transforms with FFT-based spectral features, (c) trains two models (a from-scratch CNN and a ResNet-50 transfer-learning model), and (d) produces predictions with Grad-CAM visualisations that show *why* the model called an image real or fake.
+2. **The classical-CV toolkit** (`src/classical/`) — ten runnable modules that demonstrate the rest of the AIC341 syllabus: image formation, sampling & aliasing, features (edges/corners/blobs/keypoints), Hough & RANSAC, transformations & stereo geometry, model fitting & regularisation, optimisers & a from-scratch neural net, optical flow & motion, and representation learning & generative models. Every module produces real result figures.
+
+Together they make this a **whole-syllabus** project rather than a single-topic one. See [`docs/syllabus_coverage.md`](docs/syllabus_coverage.md) for the full unit-by-unit map.
 
 ---
 
@@ -66,23 +71,41 @@ CVMid/
 │   │   ├── transfer_resnet.py       # ResNet-50 transfer-learning head
 │   │   └── factory.py               # build_model() dispatcher
 │   ├── training/trainer.py          # Training loop + early stopping
-│   └── evaluation/
-│       ├── metrics.py               # Accuracy / precision / recall / F1 / ROC
-│       └── gradcam.py               # Grad-CAM with a safe fallback
+│   ├── evaluation/
+│   │   ├── metrics.py               # Accuracy / precision / recall / F1 / ROC
+│   │   └── gradcam.py               # Grad-CAM with a safe fallback
+│   └── classical/                   # ← Full-syllabus classical-CV toolkit
+│       ├── common.py                # Shared sample images + figure helpers
+│       ├── unit1_image_basics.py    # Unit 1 — image formation, CV pipeline
+│       ├── unit2_sampling.py        # Unit 2 — sampling, aliasing, pyramids
+│       ├── unit2_features.py        # Unit 2 — edges, corners, blobs, keypoints
+│       ├── unit2_hough_ransac.py    # Unit 2 — Hough transform, RANSAC
+│       ├── unit3_transforms.py      # Unit 3 — transformations & warping
+│       ├── unit3_stereo.py          # Unit 3 — stereo, disparity, epipolar
+│       ├── unit4_model_fitting.py   # Unit 4 — fitting, regularisation, kernels
+│       ├── unit5_learning.py        # Unit 5 — convolution, optimisers, MLP
+│       ├── unit6_motion.py          # Unit 6 — optical flow, motion, change
+│       └── unit7_representation.py  # Unit 7 — PCA, embeddings, segmentation, generative
 ├── scripts/
 │   ├── train.py                     # Train a model
 │   ├── evaluate.py                  # Evaluate on test set + plots
 │   ├── predict.py                   # Predict on single image or folder
-│   └── demo.py                      # Regenerate all report figures
+│   ├── demo.py                      # Regenerate VeriVision DL figures
+│   ├── run_classical.py             # ← Run the classical-CV demos (Units 1-7)
+│   ├── verivision_figures.py        # ← VeriVision data figures (no GPU needed)
+│   └── build_report.py              # ← Build the project report (DOCX + PDF)
 ├── app/streamlit_app.py             # Interactive web demo
 ├── models_ckpt/                     # Checkpoints land here (gitignored)
 ├── reports/
-│   ├── figures/                     # Plots / heatmaps (gitignored)
-│   └── metrics_*.json               # Test metrics per run
+│   ├── figures/                     # VeriVision DL plots
+│   │   └── classical/               # Classical-CV result figures (Units 1-7)
+│   ├── metrics_*.json               # Test metrics per run
+│   └── VeriVision_Project_Report.*  # Full report — .md source, .docx, .pdf
 └── docs/
     ├── project_proposal.md
     ├── methodology.md
-    └── presentation_outline.md
+    ├── presentation_outline.md
+    └── syllabus_coverage.md         # ← Unit-by-unit syllabus map
 ```
 
 ---
@@ -167,6 +190,40 @@ train on **Kaggle** (free T4 GPU, CIFAKE pre-hosted) and deploy on
 ```bash
 python -m scripts.demo
 ```
+
+---
+
+## Full-syllabus computer-vision toolkit
+
+Beyond the deep-learning detector, `src/classical/` covers **every other unit** of the AIC341 syllabus with runnable code. No GPU and no dataset download required — the demos use bundled `scikit-image` sample images.
+
+```bash
+# Run every unit (writes ~33 figures to reports/figures/classical/)
+python -m scripts.run_classical --unit all
+
+# Or run a single unit
+python -m scripts.run_classical --unit 3        # stereo & geometry
+```
+
+| Unit | Topic | What the demo shows |
+|---|---|---|
+| 1 | Introduction & image formation | Pinhole projection, channels, colour spaces, the CV pipeline |
+| 2 | Sampling & features | Aliasing, pyramids, edges, corners, blobs, ORB, Hough, RANSAC |
+| 3 | Geometry & stereo | Transformation hierarchy, warping, disparity → depth, epipolar lines |
+| 4 | Model fitting | Polynomial fits, bias-variance, ridge regularisation, kernel regression |
+| 5 | Learning in CV | Convolution kernels, SGD vs momentum vs Adam, a from-scratch MLP |
+| 6 | Motion | Optical flow, phase-correlation motion estimation, change detection |
+| 7 | Generative & representation | PCA eigen-images, embeddings, segmentation, a generative model |
+
+Full details: [`docs/syllabus_coverage.md`](docs/syllabus_coverage.md).
+
+### Build the project report (DOCX + PDF)
+
+```bash
+python -m scripts.build_report          # needs `pandoc`; PDF uses headless Chrome
+```
+
+Produces `reports/VeriVision_Project_Report.docx` and `.pdf` with every figure embedded.
 
 ---
 
